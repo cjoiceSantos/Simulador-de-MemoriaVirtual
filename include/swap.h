@@ -2,18 +2,18 @@
 A PARTIR ENDEREÇO DECIMAL
 */
 
-#import <map>
+#include <map>
 using namespace std;
 class Swap{
     
-    int totalPaginas,
-    Map<int,string> paginas, //endereço + letra (R ou W)
+    int totalPaginas;
+    map<int, string> paginas; //endereço + letra (R ou W)
     
-    Swap(Map<string,string> enderecos, int totalPaginas);
+    Swap(map<string, string> enderecos, int totalPaginas);
     ~Swap();
 
     void getPagina();
     void gerarEndVirtual();
     int getTotalPaginas();
-    Map<int> getPaginas();
+    map<int, string> getPaginas();
 }
