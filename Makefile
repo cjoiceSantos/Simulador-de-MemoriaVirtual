@@ -8,8 +8,9 @@ OBJ = ./build
 BIN = ./bin
 # nome do executáveL
 PROG = $(BIN)/simulador
-CPPFLAGS = -Wall -pedantic -std=c++11 -I$(INC)
-OBJTS = $(OBJ)/principal.o $(OBJ)/simulador.o
+CPPFLAGSGTK = `pkg-config --cflags gtkmm-3.0` -Wall -std=c++11 -I$(INC)
+LDFLAGSGTK = `pkg-config --libs gtkmm-3.0`
+OBJTS = $(OBJ)/principal.o $(OBJ)/JanelaPrincipal.o $(OBJ)/simulador.o
 
 all: mkdirs $(PROG)
 
@@ -18,13 +19,16 @@ mkdirs:
 	mkdir -p $(OBJ)
 
 $(PROG): $(OBJTS)
-	$(CC) $(CPPFLAGS) -o $(PROG) $(OBJTS) 
+	$(CC) -o $(PROG) $(OBJTS) $(LDFLAGSGTK)
+
+$(OBJ)/simulador.o: $(SRC)/simulador.cpp
+	$(CC) $(CPPFLAGSGTK) -c $(SRC)/simulador.cpp -o $(OBJ)/simulador.o
+
+$(OBJ)/JanelaPrincipal.o: $(SRC)/JanelaPrincipal.cpp $(INC)/JanelaPrincipal.h
+	$(CC) $(CPPFLAGSGTK) -c $(SRC)/JanelaPrincipal.cpp -o $(OBJ)/JanelaPrincipal.o
 
 $(OBJ)/principal.o: $(SRC)/principal.cpp $(INC)/principal.h
 	$(CC) $(CPPFLAGS) -c $(SRC)/principal.cpp -o $(OBJ)/principal.o
-
-$(OBJ)/simulador.o: $(SRC)/simulador.cpp
-	$(CC) $(CPPFLAGS) -c $(SRC)/simulador.cpp -o $(OBJ)/simulador.o
 
 clean: 
 	rm -f $(BIN)/*
