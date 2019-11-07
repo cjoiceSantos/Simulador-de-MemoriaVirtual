@@ -3,8 +3,8 @@
 #include <fstream>
 #include <sstream>
 #include "string.h"
-//#include "principal.h"
-#include "algoritmosSubst.h"
+#include "memoria.h"
+#include "algoritmosSubstituicao.h"
 using namespace std;
 
 
