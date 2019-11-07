@@ -2,7 +2,7 @@
 #include "stdlib.h"
 #include <fstream>
 #include <sstream>
-#include "string.h"
+#include <string>
 #include "memoria.h"
 #include "algoritmosSubstituicao.h"
 using namespace std;
@@ -46,10 +46,8 @@ int main(int argc, char const *argv[])
 		return 1;
 	}
     */
-
-    AlgoritmosSubstituicao *alg_subst = new AlgoritmosSubstituicao(tamMemoria,tamPagina);
-    alg_subst->random();
-
-
+    AlgoritmosSubstituicao alg_subst = new AlgoritmosSubstituicao(tamMemoria,tamPagina);
+    cout << alg_subst.random() << endl;
+    cout << alg_subst.converterHexaToDecimal("000652d8") endl;
    
 }

@@ -11,20 +11,23 @@ AlgoritmosSubstituicao::AlgoritmosSubstituicao(int totalPalavras, int totalPagin
 
 AlgoritmosSubstituicao::~AlgoritmosSubstituicao(){}
 
-int AlgoritmosSubstituicao::lru(string palavra){}
 
-int AlgoritmosSubstituicao::fifo(string palavra){}
-
-int AlgoritmosSubstituicao::nru(string palavra){}
-
-int AlgoritmosSubstituicao::lfu(string palavra){}
-
-int AlgoritmosSubstituicao::random(){
-    
+int AlgoritmosSubstituicao::random(){ 
     random_device rd;
 	default_random_engine gen(rd());
 	uniform_int_distribution<> dis(0,totalPaginas-1);
-
     return dis(gen);
-    cout << value <<endl; //debug - retirar linha
 }
+
+int  AlgoritmosSubstituicao::converterHexaToDecimal(string palavraHex){
+    int valor;
+    stringstream stream;
+    stream << palavraHex;
+    stream >> hex >> valor;
+    return valor;
+}
+
+int AlgoritmosSubstituicao::lru(string palavra){}
+int AlgoritmosSubstituicao::fifo(string palavra){}
+int AlgoritmosSubstituicao::nru(string palavra){}
+int AlgoritmosSubstituicao::lfu(string palavra){}

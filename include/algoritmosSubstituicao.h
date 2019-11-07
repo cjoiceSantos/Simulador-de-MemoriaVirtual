@@ -25,5 +25,6 @@ public:
     int nru(string palavra);
     int lfu(string palavra);
     int random();
+    int converterHexaToDecimal(string palavra);
 };
 #endif

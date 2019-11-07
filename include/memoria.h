@@ -1,9 +1,22 @@
 #ifndef MEMORIA_H
 #define MEMORIA_H
 
-class Memoria {
+#include <vector>
+#include <string>
+using namespace std;
+
+class Memoria{
+  private:
+    int tamMemoria;
+    int tamFrame;
+    vector<int> linhas;
+
   public:
-   Memoria();
-   ~Memoria(); 
+    Memoria(int tamFrame);
+    ~Memoria(); 
+
+    string escrita(string pagina);
+    string leitura(string pagina);
 };
+
 #endif
