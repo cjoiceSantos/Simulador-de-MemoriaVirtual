@@ -4,14 +4,13 @@
 #include <sstream>
 #include "string.h"
 //#include "principal.h"
-
+#include "algoritmosSubst.h"
 using namespace std;
 
 
 int main(int argc, char const *argv[])
-{
-    //Verificando parâmetros
-    cout << argc << endl;
+{   
+    //VERIFICANDO PARÂMETROS
     if(argc != 5){
         cerr  <<"Parâmetros inválidos. Informe: "<< endl 
         << " 1. O algoritmo de substituição a ser usado (lru, fifo, nru, lfu e random)" << endl 
@@ -24,12 +23,11 @@ int main(int argc, char const *argv[])
     string algoritmo = argv[1];
     string arqEnderecos = argv[2];
 	int tamPagina = atoi(argv[3]), tamMemoria = atoi(argv[4]);
- 
+
    /* if(algoritmo == "lru" || algoritmo == "fifo" || algoritmo == "nru" || algoritmo == "lfu" && algoritmo != "random"){
            cerr << "ERRO: ALGORITMO DE SUBSTITUIÇÃO INVÁLIDO." << endl;
            return 1;
     } */
-
     if(tamMemoria < 128 && tamMemoria > 16384){
         cerr << "ERRO: MEMÓRIA DEVE ESTAR ENTRE 128 E 16384." << endl;
         return 1;
@@ -41,11 +39,17 @@ int main(int argc, char const *argv[])
 
     //Lendo arquivo que contém os endereços
     ifstream arqEndercos;	
-	
+    /*
     arqEndercos.open(argv[2], ios::in);
 	if (!arqEndercos.is_open()){
 		cerr  << "Erro ao abrir arquivo de leitura dos endereços." << endl;
 		return 1;
 	}
-	
+    */
+
+    AlgoritmosSubstituicao *alg_subst = new AlgoritmosSubstituicao(tamMemoria,tamPagina);
+    alg_subst->random();
+
+
+   
 }
