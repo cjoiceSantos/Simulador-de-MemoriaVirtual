@@ -4,8 +4,10 @@
 
 using namespace std;
 
-AlgoritmosSubstituicao::AlgoritmosSubstituicao(int totalPalavras, int totalPaginas):
-    totalPalavras(totalPalavras),totalPaginas(totalPaginas){
+//Adicionado 'método de substituição' no construtor 
+
+AlgoritmosSubstituicao::AlgoritmosSubstituicao(int totalPalavras, int totalPaginas, string metSubstituicao):
+    totalPalavras(totalPalavras),totalPaginas(totalPaginas), metSubstituicao(metSubstituicao){
         palavraPorPagina = totalPalavras/totalPaginas;
     }
 
@@ -31,3 +33,10 @@ int AlgoritmosSubstituicao::lru(string palavra){}
 int AlgoritmosSubstituicao::fifo(string palavra){}
 int AlgoritmosSubstituicao::nru(string palavra){}
 int AlgoritmosSubstituicao::lfu(string palavra){}
+
+bool AlgoritmosSubstituicao::checkLixo(int pagina){
+
+
+
+}
+
