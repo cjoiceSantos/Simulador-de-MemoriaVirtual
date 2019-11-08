@@ -27,8 +27,11 @@ $(OBJ)/simulador.o: $(SRC)/simulador.cpp
 $(OBJ)/JanelaPrincipal.o: $(SRC)/JanelaPrincipal.cpp $(INC)/JanelaPrincipal.h
 	$(CC) $(CPPFLAGSGTK) -c $(SRC)/JanelaPrincipal.cpp -o $(OBJ)/JanelaPrincipal.o
 
-$(OBJ)/principal.o: $(SRC)/principal.cpp $(INC)/principal.h
-	$(CC) $(CPPFLAGS) -c $(SRC)/principal.cpp -o $(OBJ)/principal.o
+$(OBJ)/memoria.o: $(SRC)/memoria.cpp $(INC)/memoria.h
+	$(CC) $(CPPFLAGS) -c $(SRC)/memoria.cpp -o $(OBJ)/memoria.o
+
+$(OBJ)/algoritmosSubstituicao.o: $(SRC)/algoritmosSubstituicao.cpp $(INC)/algoritmosSubstituicao.h
+		$(CC) $(CPPFLAGS) -c $(SRC)/algoritmosSubstituicao.cpp -o $(OBJ)/algoritmosSubstituicao.o
 
 clean: 
 	rm -f $(BIN)/*
