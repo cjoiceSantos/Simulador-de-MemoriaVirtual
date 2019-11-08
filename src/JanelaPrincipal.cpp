@@ -4,11 +4,11 @@ using namespace Gtk;
 using namespace std;
 
 /**
-* @brief Construtor padrão da classe JanelaPrincipal.
+* @brief Construtor padrão da classe JanelaPrincipal
 */
 
-JanelaPrincipal::JanelaPrincipal()
-: labelFrame("Quantidade de frames: "),
+JanelaPrincipal::JanelaPrincipal():
+	labelFrame("Quantidade de frames: "),
 	labelPagina("Quantidade de Paginas: "),
 	labelAlgoritimo("Algotitimos: "),
 	labelArquivo("Arquivo: "),
@@ -20,15 +20,15 @@ JanelaPrincipal::JanelaPrincipal()
 	buttonSimular("Simular"),
 	buttonEscolherArquivo("Escolher arquivo")
 {
-	//Configuração da janela
+	//Configurações da janela
 	
 	set_size_request(1000, 700); // Largura x Altura da tela
 	set_title("Simulador de memoria virtual");
 	add(boxPrincipal);
 
-	// Adicionado as box na janela
+	// Adicionado as widgets na janela
 
-	boxPrincipal.add(boxDados);
+	boxPrincipal.pack_start(boxDados, false, false);
 	boxPrincipal.add(scrolledWindowInformacoes);
 	
 	boxDados.pack_start(boxFrame, PACK_SHRINK, 10);
@@ -36,8 +36,6 @@ JanelaPrincipal::JanelaPrincipal()
 	boxDados.pack_start(boxAlgoritimos, PACK_SHRINK, 10);
 	boxDados.pack_start(boxArquivo, PACK_SHRINK, 10);
 	boxDados.pack_start(boxBotaoSimular, PACK_SHRINK, 10);
-	// Cor tempraria
-	boxDados.override_background_color(Gdk::RGBA("red"));
 
 	boxFrame.pack_start(labelFrame, PACK_SHRINK, 10);
 	boxFrame.pack_start(entryFrame, PACK_SHRINK);
@@ -81,12 +79,12 @@ JanelaPrincipal::JanelaPrincipal()
 	buttonSimular.signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::funcaoBotaoSimular));
 	buttonEscolherArquivo.signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::funcaoBotaoEscolherArquivo));
 
-	// Mostrar todos os widgets.
+	// Mostrar todos os widgets
 	show_all_children();
 }
 
 /**
-* @brief Destrutor da classe JanelaPrincipal.
+* @brief Destrutor da classe JanelaPrincipal
 */
 
 JanelaPrincipal::~JanelaPrincipal(){}
@@ -97,25 +95,29 @@ JanelaPrincipal::~JanelaPrincipal(){}
 
 void JanelaPrincipal::funcaoBotaoSimular()
 {
+	// Validação dos dados digitados
 	try {
 		quantidadeDeFrames = stol(entryFrame.get_text());
 		quantidadeDePaginas = stol(entryPagina.get_text());
-		nomeDoarquivo = entryEscolherAquivo.get_text();
 	}
 	catch (exception &exception) {
+		// Caso não forem validos mostra um aviso
 		MessageDialog dialog(*this, "");
 		dialog.set_secondary_text("Dados invalídos");
   		dialog.run();		
 		return;
 	}
 
-	if (nomeDoarquivo.empty())
+	nomeDoarquivo = entryEscolherAquivo.get_text();
+	FILE *file = fopen(nomeDoarquivo.c_str(), "r");
+	if (!file) 
 	{
 		MessageDialog dialog(*this, "");
 		dialog.set_secondary_text("Arquivo invalído");
   		dialog.run();
-		return;
+        return;
 	}
+	fclose(file);
 
 	algoritimos.push_back(checkButtonRu.get_active());
 	algoritimos.push_back(checkButtonNru.get_active());
@@ -138,7 +140,7 @@ void JanelaPrincipal::funcaoBotaoEscolherArquivo()
 
 	int result = dialog.run();
 
-	if (RESPONSE_OK)
+	if (result == RESPONSE_OK)
 	{
 		string fileName = dialog.get_filename();
 		entryEscolherAquivo.set_text(fileName);
@@ -151,7 +153,10 @@ void JanelaPrincipal::funcaoBotaoEscolherArquivo()
 
 void JanelaPrincipal::addInfo(string texto)
 {
+	HBox *boxInformacaoUnica = new HBox;
 	Label *informacao = new Label(texto);
-	boxInformacoes.pack_start(*informacao, PACK_SHRINK);
+	boxInformacoes.pack_start(*boxInformacaoUnica, PACK_SHRINK, 5);
+	boxInformacaoUnica->pack_start(*informacao, PACK_SHRINK);
+	boxInformacaoUnica->show();
 	informacao->show();
 }
