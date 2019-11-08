@@ -20,53 +20,64 @@ JanelaPrincipal::JanelaPrincipal()
 	buttonSimular("Simular"),
 	buttonEscolherArquivo("Escolher arquivo")
 {
-	//Configuração dos atributos da classe GTK.
+	//Configuração da janela
 	
-	set_size_request(1000, 700); // Tamnho x Altura da tela
+	set_size_request(1000, 700); // Largura x Altura da tela
 	set_title("Simulador de memoria virtual");
 	add(boxPrincipal);
 
-	boxPrincipal.pack_start(boxPrimeiraLinha, PACK_SHRINK, 10);
-	boxPrincipal.pack_start(boxSegundaLinha, PACK_SHRINK);
-	boxPrincipal.add(boxInformacoes);
+	// Adicionado as box na janela
 
-	boxPrimeiraLinha.pack_start(labelFrame, PACK_EXPAND_PADDING);
-	boxPrimeiraLinha.pack_start(labelPagina, PACK_EXPAND_PADDING);
-	boxPrimeiraLinha.pack_start(labelAlgoritimo, PACK_EXPAND_PADDING);
-	boxPrimeiraLinha.pack_start(labelArquivo, PACK_EXPAND_PADDING);
-	boxPrimeiraLinha.pack_start(buttonSimular, PACK_EXPAND_PADDING);
+	boxPrincipal.add(boxDados);
+	boxPrincipal.add(scrolledWindowInformacoes);
+	
+	boxDados.pack_start(boxFrame, PACK_SHRINK, 10);
+	boxDados.pack_start(boxPagina, PACK_SHRINK, 10);
+	boxDados.pack_start(boxAlgoritimos, PACK_SHRINK, 10);
+	boxDados.pack_start(boxArquivo, PACK_SHRINK, 10);
+	boxDados.pack_start(boxBotaoSimular, PACK_SHRINK, 10);
+	// Cor tempraria
+	boxDados.override_background_color(Gdk::RGBA("red"));
 
-	boxSegundaLinha.pack_start(entryFrame, PACK_EXPAND_PADDING);
-	boxSegundaLinha.pack_start(entryPagina, PACK_EXPAND_PADDING);
-	boxSegundaLinha.pack_start(boxCheckButtons, PACK_EXPAND_PADDING);
-	boxSegundaLinha.pack_start(boxEscolherArquivo, PACK_EXPAND_PADDING);
+	boxFrame.pack_start(labelFrame, PACK_SHRINK, 10);
+	boxFrame.pack_start(entryFrame, PACK_SHRINK);
 
-	boxCheckButtons.add(boxRu);
-	boxCheckButtons.add(boxNru);
-	boxCheckButtons.add(boxLru);
-	boxCheckButtons.add(boxFifo);
-	boxCheckButtons.add(boxRandom);
+	boxPagina.pack_start(labelPagina, PACK_SHRINK, 10);
+	boxPagina.pack_start(entryPagina, PACK_SHRINK);
 
-	boxRu.add(checkButtonRu);
-	boxRu.add(labelRu);
+	boxAlgoritimos.pack_start(labelAlgoritimo, PACK_SHRINK, 10);
+	boxAlgoritimos.pack_start(boxRu, PACK_SHRINK);
+	boxAlgoritimos.pack_start(boxNru, PACK_SHRINK);
+	boxAlgoritimos.pack_start(boxLru, PACK_SHRINK);
+	boxAlgoritimos.pack_start(boxFifo, PACK_SHRINK);
+	boxAlgoritimos.pack_start(boxRandom, PACK_SHRINK);
 
-	boxNru.add(checkButtonNru);
-	boxNru.add(labelNru);
+	boxArquivo.pack_start(labelArquivo, PACK_SHRINK, 10);
+	boxArquivo.pack_start(boxEscolherArquivo, PACK_SHRINK);
 
-	boxLru.add(checkButtonLru);
-	boxLru.add(labelLru);
+	boxBotaoSimular.pack_start(buttonSimular, PACK_SHRINK, 37);
 
-	boxFifo.add(checkButtonFifo);
-	boxRu.add(labelFifo);
+	boxRu.pack_start(checkButtonRu, PACK_SHRINK);
+	boxRu.pack_start(labelRu, PACK_SHRINK, 3);
 
-	boxRandom.add(checkButtonRandom);
-	boxRandom.add(labelRandom);
+	boxNru.pack_start(checkButtonNru, PACK_SHRINK);
+	boxNru.pack_start(labelNru, PACK_SHRINK, 3);
 
-	boxEscolherArquivo.add(entryEscolherAquivo);
-	boxEscolherArquivo.add(buttonEscolherArquivo);
+	boxLru.pack_start(checkButtonLru, PACK_SHRINK);
+	boxLru.pack_start(labelLru, PACK_SHRINK, 3);
 
+	boxFifo.pack_start(checkButtonFifo, PACK_SHRINK);
+	boxFifo.pack_start(labelFifo, PACK_SHRINK, 3);
 
-	//Conexões dos atributos da classe GTK.
+	boxRandom.pack_start(checkButtonRandom, PACK_SHRINK);
+	boxRandom.pack_start(labelRandom, PACK_SHRINK, 3);
+
+	boxEscolherArquivo.pack_start(entryEscolherAquivo, PACK_SHRINK);
+	boxEscolherArquivo.pack_start(buttonEscolherArquivo, PACK_SHRINK);
+
+	scrolledWindowInformacoes.add(boxInformacoes);
+
+	// Conexão dos botões com suas ações
 	buttonSimular.signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::funcaoBotaoSimular));
 	buttonEscolherArquivo.signal_clicked().connect(sigc::mem_fun(*this, &JanelaPrincipal::funcaoBotaoEscolherArquivo));
 
@@ -80,18 +91,42 @@ JanelaPrincipal::JanelaPrincipal()
 
 JanelaPrincipal::~JanelaPrincipal(){}
 
+/**
+* @brief Ação do botão "simular"
+*/
+
 void JanelaPrincipal::funcaoBotaoSimular()
 {
 	try {
-		long quantidadeDeFrames = stol(entryFrame.get_text());
-		long quantidadeDePaginas = stol(entryPagina.get_text());
-		string nomeDoarquivo = entryEscolherAquivo.get_text();
+		quantidadeDeFrames = stol(entryFrame.get_text());
+		quantidadeDePaginas = stol(entryPagina.get_text());
+		nomeDoarquivo = entryEscolherAquivo.get_text();
 	}
 	catch (exception &exception) {
-		addInfo("Dados invalídos");
+		MessageDialog dialog(*this, "");
+		dialog.set_secondary_text("Dados invalídos");
+  		dialog.run();		
 		return;
 	}
+
+	if (nomeDoarquivo.empty())
+	{
+		MessageDialog dialog(*this, "");
+		dialog.set_secondary_text("Arquivo invalído");
+  		dialog.run();
+		return;
+	}
+
+	algoritimos.push_back(checkButtonRu.get_active());
+	algoritimos.push_back(checkButtonNru.get_active());
+	algoritimos.push_back(checkButtonLru.get_active());
+	algoritimos.push_back(checkButtonFifo.get_active());
+	algoritimos.push_back(checkButtonRandom.get_active());
 }
+
+/**
+* @brief Ação do botão "escolher arquivo"
+*/
 
 void JanelaPrincipal::funcaoBotaoEscolherArquivo()
 {
@@ -110,8 +145,13 @@ void JanelaPrincipal::funcaoBotaoEscolherArquivo()
 	} 
 }
 
+/**
+* @brief Metodo que adiciona informações segunda parte da janela
+*/
+
 void JanelaPrincipal::addInfo(string texto)
 {
-	Label informacao(texto);
-	boxInformacoes.add(informacao);
+	Label *informacao = new Label(texto);
+	boxInformacoes.pack_start(*informacao, PACK_SHRINK);
+	informacao->show();
 }

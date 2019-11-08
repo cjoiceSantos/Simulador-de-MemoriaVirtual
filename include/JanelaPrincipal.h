@@ -4,6 +4,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 #include <gtkmm.h>
 
 using namespace std;
@@ -12,18 +13,32 @@ using namespace Gtk;
 class JanelaPrincipal : public Window
 {
 	private:
-		VBox boxPrincipal;
-		VBox boxCheckButtons;
-		VBox boxInformacoes;
+		long quantidadeDeFrames;
+		long quantidadeDePaginas;
+		string nomeDoarquivo;
+		vector<bool> algoritimos;
 
-		HBox boxPrimeiraLinha;
-		HBox boxSegundaLinha;
+		VBox boxPrincipal;
+
+		HBox boxDados;
+		VBox boxInformacoes;
+		ScrolledWindow scrolledWindowInformacoes;
+
+
+		VBox boxFrame;
+		VBox boxPagina;
+		VBox boxAlgoritimos;
+		VBox boxArquivo;
+		VBox boxBotaoSimular;
+
 		HBox boxRu;
 		HBox boxNru;
 		HBox boxLru;
 		HBox boxFifo;
 		HBox boxRandom;
+
 		HBox boxEscolherArquivo;
+
 
 		Label labelFrame;
 		Label labelPagina;
@@ -52,7 +67,7 @@ class JanelaPrincipal : public Window
 
 		JanelaPrincipal();
 		~JanelaPrincipal();
-
+		
 		void funcaoBotaoSimular();
 		void funcaoBotaoEscolherArquivo();
 		void addInfo(string);
