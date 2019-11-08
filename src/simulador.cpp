@@ -46,7 +46,15 @@ int main(int argc, char const *argv[])
 		return 1;
 	}
     */
-    AlgoritmosSubstituicao alg_subst = new AlgoritmosSubstituicao(tamMemoria,tamPagina);
+    
+    //=====================================================================================================
+    //pegar o arquivo com os endereços (arqEndercos) e já aplicar a função de conversão de hexadecimal para 
+    //decimal, assim n precisamos ficar trabalhando com as páginas em formato String, acho que isso
+    //facilitaria o código
+    //=====================================================================================================
+    
+
+    AlgoritmosSubstituicao alg_subst = new AlgoritmosSubstituicao(tamMemoria,tamPagina, metSubstituicao);
     cout << alg_subst.random() << endl;
     cout << alg_subst.converterHexaToDecimal("000652d8") endl;
    
