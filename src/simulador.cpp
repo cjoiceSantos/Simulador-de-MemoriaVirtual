@@ -20,8 +20,7 @@ int main(int argc, char const *argv[])
 		return 1;
     }
   
-    string algoritmo = argv[1];
-    string arqEnderecos = argv[2];
+    string algoritmo = argv[1], arqEnderecos = argv[2], line;
 	int tamPagina = atoi(argv[3]), tamMemoria = atoi(argv[4]);
 
    /* if(algoritmo == "lru" || algoritmo == "fifo" || algoritmo == "nru" || algoritmo == "lfu" && algoritmo != "random"){
@@ -39,15 +38,23 @@ int main(int argc, char const *argv[])
 
     //Lendo arquivo que contém os endereços
     ifstream arqEndercos;	
-    /*
     arqEndercos.open(argv[2], ios::in);
 	if (!arqEndercos.is_open()){
 		cerr  << "Erro ao abrir arquivo de leitura dos endereços." << endl;
 		return 1;
 	}
-    */
-    AlgoritmosSubstituicao alg_subst = new AlgoritmosSubstituicao(tamMemoria,tamPagina);
-    cout << alg_subst.random() << endl;
-    cout << alg_subst.converterHexaToDecimal("000652d8") endl;
+    
+     AlgoritmosSubstituicao *alg_subst = new AlgoritmosSubstituicao(tamMemoria,tamPagina);
+
+    while (!arqEndercos.eof()){
+      getline(arqEndercos,line);                   
+      cout << line << endl;
+    }
+    arqEndercos.close();
+    
+    
+   
+    cout << alg_subst->random() << endl;
+    cout << alg_subst->converterHexaToDecimal("000652d8") << endl;
    
 }
