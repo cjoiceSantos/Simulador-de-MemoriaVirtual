@@ -44,16 +44,19 @@ int main(int argc, char const *argv[])
 		return 1;
 	}
     
-     AlgoritmosSubstituicao *alg_subst = new AlgoritmosSubstituicao(tamMemoria,tamPagina);
-
+    AlgoritmosSubstituicao *alg_subst = new AlgoritmosSubstituicao(tamMemoria,tamPagina,algoritmo);
+    string endereco,operacao;
     while (!arqEndercos.eof()){
-      getline(arqEndercos,line);                   
-      cout << line << endl;
+        getline(arqEndercos,endereco,' ');
+        getline(arqEndercos,operacao);
+      
+        cout << operacao << endl;
+    
+    
     }
+
     arqEndercos.close();
-    
-    
-   
+
     cout << alg_subst->random() << endl;
     cout << alg_subst->converterHexaToDecimal("000652d8") << endl;
    

@@ -11,20 +11,23 @@ private:
     int totalPaginas;
     int totalPalavras;
     int palavraPorPagina;
+    string metSubstituicao;
     vector<int> frequencia;
     queue<int> fila;
     
 
 public:
 
-    AlgoritmosSubstituicao(int totalPalavras, int totalPaginas);
+    AlgoritmosSubstituicao(int totalPalavras, int totalPaginas,string metSubstituicao);
     ~AlgoritmosSubstituicao();
 
-    int lru(string palavra);
-    int fifo(string palavra);
-    int nru(string palavra);
-    int lfu(string palavra);
+    void substituir(string algoritmo, int pagina);
+    int lru(int pagina);
+    int fifo(int pagina);
+    int nru(int pagina);
+    int lfu(int pagina);
     int random();
-    int converterHexaToDecimal(string palavra);
+    int converterHexaToDecimal(string pagina);
+    bool checkLixo (int pagina);
 };
 #endif
