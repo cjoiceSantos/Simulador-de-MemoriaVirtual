@@ -21,13 +21,14 @@ int main(int argc, char const *argv[])
     }
   
     string algoritmo = argv[1];
-    string arqEnderecos = argv[2];
+    string file = argv[2];
 	int tamPagina = atoi(argv[3]), tamMemoria = atoi(argv[4]);
 
    /* if(algoritmo == "lru" || algoritmo == "fifo" || algoritmo == "nru" || algoritmo == "lfu" && algoritmo != "random"){
            cerr << "ERRO: ALGORITMO DE SUBSTITUIÇÃO INVÁLIDO." << endl;
            return 1;
     } */
+
     if(tamMemoria < 128 && tamMemoria > 16384){
         cerr << "ERRO: MEMÓRIA DEVE ESTAR ENTRE 128 E 16384." << endl;
         return 1;
@@ -39,15 +40,31 @@ int main(int argc, char const *argv[])
 
     //Lendo arquivo que contém os endereços
     ifstream arqEndercos;	
-    /*
-    arqEndercos.open(argv[2], ios::in);
+    arqEndercos.open(file, ios::in);
 	if (!arqEndercos.is_open()){
 		cerr  << "Erro ao abrir arquivo de leitura dos endereços." << endl;
 		return 1;
 	}
-    */
-    AlgoritmosSubstituicao alg_subst = new AlgoritmosSubstituicao(tamMemoria,tamPagina);
-    cout << alg_subst.random() << endl;
-    cout << alg_subst.converterHexaToDecimal("000652d8") endl;
-   
+    
+    AlgoritmosSubstituicao *alg_subst = new AlgoritmosSubstituicao(tamMemoria,tamPagina);
+    string linha, endereco, operacao;
+	//Lendo os comandos do arquivo: 
+	//Lendo os comandos do arquivo: 
+	while (getline(file, linha)){
+			
+            if (linha == ""){
+		        continue;
+			}
+
+			istringstream i(linha);
+			i >> endereco;
+		
+			if (i.eof()){
+                cout << endereco;
+            }
+    }
+
+
+    cout << alg_subst->random() << endl;
+    cout << alg_subst->converterHexaToDecimal("000652d8") << endl;
 }
