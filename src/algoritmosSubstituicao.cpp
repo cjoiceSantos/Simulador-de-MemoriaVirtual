@@ -5,30 +5,49 @@
 
 using namespace std;
 
-AlgoritmosSubstituicao::AlgoritmosSubstituicao(int totalPalavras, int totalPaginas):
-    totalPalavras(totalPalavras),totalPaginas(totalPaginas){
-        palavraPorPagina = totalPalavras/totalPaginas;
+AlgoritmosSubstituicao::AlgoritmosSubstituicao(int tamMemoria, int tamPaginas,string metSubstituicao):
+    tamMemoria(tamMemoria),tamPaginas(tamPaginas), metSubstituicao(metSubstituicao){
+        totalPaginasNaMemoria = tamMemoria/tamPaginas;
     }
 
 AlgoritmosSubstituicao::~AlgoritmosSubstituicao(){}
 
-
-int  AlgoritmosSubstituicao::converterHexaToDecimal(string palavraHex){
-    int valor;
-    stringstream stream;
-    stream << palavraHex;
-    stream >> hex >> valor;
-    return valor;
+void AlgoritmosSubstituicao::substituir(string algoritmo, int pagina){
+    if(algoritmo.compare("lru")){
+        lru(pagina);
+        return;
+    }
+    if(algoritmo.compare("fifo")){
+        fifo(pagina);
+        return;
+    }     
+    if(algoritmo.compare("nru")){
+        nru(pagina);
+        return;  
+    }  
+    if(algoritmo.compare("lfu")){
+        fifo(pagina);
+        return;
+    } 
+    if(algoritmo.compare("random")){
+        random();
+        return;
+    } 
 }
 
 int AlgoritmosSubstituicao::random(){ 
     random_device rd;
 	default_random_engine gen(rd());
-	uniform_int_distribution<> dis(0,totalPaginas-1);
+	uniform_int_distribution<> dis(0,totalPaginasNaMemoria-1);
     return dis(gen);
 }
 
-int AlgoritmosSubstituicao::lru(string palavra){}
-int AlgoritmosSubstituicao::fifo(string palavra){}
-int AlgoritmosSubstituicao::nru(string palavra){}
-int AlgoritmosSubstituicao::lfu(string palavra){}
+int AlgoritmosSubstituicao::lru(int pagina){}
+
+int AlgoritmosSubstituicao::fifo(int pagina){}
+
+int AlgoritmosSubstituicao::nru(int pagina){}
+
+int AlgoritmosSubstituicao::lfu(int pagina){}
+
+bool AlgoritmosSubstituicao::checkLixo (int pagina){}

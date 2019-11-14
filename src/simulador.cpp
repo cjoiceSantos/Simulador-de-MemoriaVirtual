@@ -7,6 +7,14 @@
 #include "algoritmosSubstituicao.h"
 using namespace std;
 
+// Converte a palavra em hexadecimal para decimal
+int valor;
+int  converterHexaToDecimal(string palavraHex){
+    stringstream stream;
+    stream << palavraHex;
+    stream >> hex >> valor;
+    return valor;
+}
 
 int main(int argc, char const *argv[])
 {   
@@ -19,9 +27,8 @@ int main(int argc, char const *argv[])
         << " 4. Tamanho total da memória física - 128 à 16384." << endl;
 		return 1;
     }
-  
-    string algoritmo = argv[1];
-    string file = argv[2];
+
+    string algoritmo = argv[1], arqEnderecos = argv[2], line;
 	int tamPagina = atoi(argv[3]), tamMemoria = atoi(argv[4]);
 
    /* if(algoritmo == "lru" || algoritmo == "fifo" || algoritmo == "nru" || algoritmo == "lfu" && algoritmo != "random"){
@@ -40,31 +47,42 @@ int main(int argc, char const *argv[])
 
     //Lendo arquivo que contém os endereços
     ifstream arqEndercos;	
-    arqEndercos.open(file, ios::in);
+    arqEndercos.open(argv[2], ios::in);
+
 	if (!arqEndercos.is_open()){
 		cerr  << "Erro ao abrir arquivo de leitura dos endereços." << endl;
 		return 1;
 	}
-    
-    AlgoritmosSubstituicao *alg_subst = new AlgoritmosSubstituicao(tamMemoria,tamPagina);
-    string linha, endereco, operacao;
-	//Lendo os comandos do arquivo: 
-	//Lendo os comandos do arquivo: 
-	while (getline(file, linha)){
-			
-            if (linha == ""){
-		        continue;
-			}
 
-			istringstream i(linha);
-			i >> endereco;
-		
-			if (i.eof()){
-                cout << endereco;
+    //AlgoritmosSubstituicao *alg_subst = new AlgoritmosSubstituicao(tamMemoria,tamPagina,algoritmo);
+    string endereco, operacao;
+    int endDecimal, pagina;
+    Memoria* memoria = new Memoria(tamMemoria, tamPagina);
+
+    while (!arqEndercos.eof()){
+        getline(arqEndercos,endereco,' ');
+        getline(arqEndercos,operacao);
+
+        endDecimal = converterHexaToDecimal(endereco);
+        pagina = endDecimal / 4;
+
+        cout << pagina << " " << endl;
+        if(!operacao.compare("W")){
+            if(memoria->escrita(pagina)){
+                cout << "escreviiiii" << endl;
+                continue;
             }
+            cout << "memoria cheia" << endl;
+            continue;
+        }        
+        memoria->leitura(pagina);
+        cout << "lido" << endl;
     }
+    memoria->print();
+
+    arqEndercos.close();
 
 
-    cout << alg_subst->random() << endl;
-    cout << alg_subst->converterHexaToDecimal("000652d8") << endl;
+   // cout << alg_subst->random() << endl;
+    //cout << alg_subst->converterHexaToDecimal("000652d8") << endl;
 }

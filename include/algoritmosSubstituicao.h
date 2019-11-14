@@ -4,27 +4,32 @@
 #include <vector>
 #include <queue>
 #include "string"
+
 using namespace std;
 
 class AlgoritmosSubstituicao{
 private:    
-    int totalPaginas;
-    int totalPalavras;
-    int palavraPorPagina;
+    int tamPaginas;
+    int tamMemoria;
+    const int palavraPorPagina = 4;
+    int totalPaginasNaMemoria;
+    string metSubstituicao;
     vector<int> frequencia;
     queue<int> fila;
     
 
 public:
 
-    AlgoritmosSubstituicao(int totalPalavras, int totalPaginas);
+    AlgoritmosSubstituicao(int tamMemoria, int tamPaginas,string metSubstituicao);
     ~AlgoritmosSubstituicao();
 
-    int lru(string palavra);
-    int fifo(string palavra);
-    int nru(string palavra);
-    int lfu(string palavra);
+    void substituir(string algoritmo, int pagina);
+    int lru(int pagina);
+    int fifo(int pagina);
+    int nru(int pagina);
+    int lfu(int pagina);
     int random();
-    int converterHexaToDecimal(string palavra);
+    //int converterHexaToDecimal(string pagina);
+    bool checkLixo (int pagina);
 };
 #endif
