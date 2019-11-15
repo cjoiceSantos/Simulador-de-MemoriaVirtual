@@ -2,6 +2,8 @@
 #define MEMORIA_H
 
 #include <set>
+#include <queue>
+#include <map>
 using namespace std;
 
 class Memoria{
@@ -9,10 +11,14 @@ class Memoria{
     int tamMemoria;
     int tamFrame;
     int totalPaginasNaMemoria;
-    set<int> frames; 
+    string metSubstituicao;
+    set<int> frames;
+    queue<int> fila;
+    map<int,int> frequencia;
+     
 
   public:
-    Memoria(int tamMemoria, int tamFrame);
+    Memoria(int tamMemoria, int tamFrame, string metSubstituicao);
     ~Memoria(); 
 
     bool escrita(int pagina);
@@ -22,6 +28,13 @@ class Memoria{
     int getTotalPaginasNaMemoria();
     set<int> getFrame();
     void print();
-};
+    void atualizarEstruturas(int pagina);
+    void substituir(int pagina);
+    int lru(int pagina);
+    int fifo(int pagina);
+    int nru(int pagina);
+    int lfu(int pagina);
+    int random(int pagina);
 
+};
 #endif

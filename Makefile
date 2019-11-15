@@ -9,7 +9,7 @@ BIN = ./bin
 # nome do executáveL
 PROG = $(BIN)/simulador
 CPPFLAGS = -Wall -pedantic -std=c++11 -I$(INC)
-OBJTS = $(OBJ)/memoria.o $(OBJ)/algoritmosSubstituicao.o $(OBJ)/simulador.o 
+OBJTS = $(OBJ)/memoria.o $(OBJ)/algoritmosGeradorEnd.o $(OBJ)/simulador.o 
 
 all: mkdirs $(PROG)
 
@@ -23,8 +23,8 @@ $(PROG): $(OBJTS)
 $(OBJ)/memoria.o: $(SRC)/memoria.cpp $(INC)/memoria.h
 	$(CC) $(CPPFLAGS) -c $(SRC)/memoria.cpp -o $(OBJ)/memoria.o
 
-$(OBJ)/algoritmosSubstituicao.o: $(SRC)/algoritmosSubstituicao.cpp $(INC)/algoritmosSubstituicao.h
-		$(CC) $(CPPFLAGS) -c $(SRC)/algoritmosSubstituicao.cpp -o $(OBJ)/algoritmosSubstituicao.o
+$(OBJ)/algoritmosGeradorEnd.o: $(SRC)/algoritmosGeradorEnd.cpp $(INC)/algoritmosGeradorEnd.h
+		$(CC) $(CPPFLAGS) -c $(SRC)/algoritmosGeradorEnd.cpp -o $(OBJ)/algoritmosGeradorEnd.o
 
 $(OBJ)/simulador.o: $(SRC)/simulador.cpp
 	$(CC) $(CPPFLAGS) -c $(SRC)/simulador.cpp -o $(OBJ)/simulador.o

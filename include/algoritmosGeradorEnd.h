@@ -1,5 +1,5 @@
-#ifndef ALGORITMOSSUBSTITUICAO_H
-#define ALGORITMOSSUBSTITUICAO_H
+#ifndef ALGORITMOSGERACAOEND_H
+#define ALGORITMOSGERACAOEND_H
 
 #include <vector>
 #include <queue>

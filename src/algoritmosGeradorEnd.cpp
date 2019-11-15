@@ -1,4 +1,4 @@
-#include "algoritmosSubstituicao.h"
+#include "algoritmosGeradorEnd.h"
 #include <iostream>
 #include <sstream>
 #include <random>
@@ -13,6 +13,8 @@ AlgoritmosSubstituicao::AlgoritmosSubstituicao(int tamMemoria, int tamPaginas,st
 AlgoritmosSubstituicao::~AlgoritmosSubstituicao(){}
 
 void AlgoritmosSubstituicao::substituir(string algoritmo, int pagina){
+    
+
     if(algoritmo.compare("lru")){
         lru(pagina);
         return;

@@ -4,7 +4,7 @@
 #include <sstream>
 #include <string>
 #include "memoria.h"
-#include "algoritmosSubstituicao.h"
+#include "algoritmosGeradorEnd.h"
 using namespace std;
 
 // Converte a palavra em hexadecimal para decimal
@@ -55,34 +55,48 @@ int main(int argc, char const *argv[])
 	}
 
     //AlgoritmosSubstituicao *alg_subst = new AlgoritmosSubstituicao(tamMemoria,tamPagina,algoritmo);
-    string endereco, operacao;
-    int endDecimal, pagina;
-    Memoria* memoria = new Memoria(tamMemoria, tamPagina);
+    string palavra, operacao;
+    int endDecimal, pagina, totalPalavras=0, paginasLidas=0,paginasEscritas=0, paginasSujas=0, faltaPaginas=0;
+    Memoria* memoria = new Memoria(tamMemoria, tamPagina,algoritmo);
 
     while (!arqEndercos.eof()){
-        getline(arqEndercos,endereco,' ');
+        getline(arqEndercos,palavra,' ');
         getline(arqEndercos,operacao);
 
-        endDecimal = converterHexaToDecimal(endereco);
+        endDecimal = converterHexaToDecimal(palavra);
+        totalPalavras++;
         pagina = endDecimal / 4;
-
-        cout << pagina << " " << endl;
-        if(!operacao.compare("W")){
-            if(memoria->escrita(pagina)){
-                cout << "escreviiiii" << endl;
+        
+        if(!operacao.compare("R")){
+            if(memoria->leitura(pagina)){
+                paginasLidas++;
                 continue;
             }
-            cout << "memoria cheia" << endl;
+            faltaPaginas++;
+            memoria->escrita(pagina);
             continue;
-        }        
-        memoria->leitura(pagina);
-        cout << "lido" << endl;
+        } else {
+            
+            if(memoria->escrita(pagina)){    
+                paginasEscritas++;
+                continue;
+            }
+            paginasSujas++;
+        }       
     }
+
+    cout << "RELATÓRIOS: " << endl <<
+    "TOTAL PAGINAS NA MEMÓRIA: " << tamMemoria/tamPagina << endl <<
+    "ALGORITMO SUBSTITUIÇÃO: " << algoritmo << endl <<
+    "TOTAL DE PALAVRAS: " << totalPalavras << endl <<
+    "TOTAL LEITURAS: " << paginasLidas+faltaPaginas << endl <<
+    "  SUCESSO - " << paginasLidas << endl <<
+    "  FALHA   - " <<  faltaPaginas << endl <<
+    "TOTAL ESCRITAS: " << paginasEscritas+paginasSujas << endl <<
+    "  SUCESSO - " << paginasEscritas << endl << 
+    "  FALHA   - " << paginasSujas << endl;
     memoria->print();
 
     arqEndercos.close();
 
-
-   // cout << alg_subst->random() << endl;
-    //cout << alg_subst->converterHexaToDecimal("000652d8") << endl;
-}
+ }
