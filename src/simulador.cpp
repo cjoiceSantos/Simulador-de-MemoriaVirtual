@@ -18,6 +18,10 @@ int  converterHexaToDecimal(string palavraHex){
 
 int main(int argc, char const *argv[])
 {   
+   // AlgoritmosSubstituicao gerando_arquivo(1000, 1000);
+    //gerando_arquivo.gerarArquivo();
+
+
     //VERIFICANDO PARÂMETROS
     if(argc != 5){
         cerr  <<"Parâmetros inválidos. Informe: "<< endl 

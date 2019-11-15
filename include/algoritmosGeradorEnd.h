@@ -1,35 +1,26 @@
 #ifndef ALGORITMOSGERACAOEND_H
 #define ALGORITMOSGERACAOEND_H
 
-#include <vector>
-#include <queue>
-#include "string"
+#include <string>
+#include <random>
 
 using namespace std;
 
 class AlgoritmosSubstituicao{
-private:    
-    int tamPaginas;
-    int tamMemoria;
-    const int palavraPorPagina = 4;
-    int totalPaginasNaMemoria;
-    string metSubstituicao;
-    vector<int> frequencia;
-    queue<int> fila;
-    
+    private:
+        int valor;
+		random_device rd;
+		default_random_engine gen;
+		uniform_int_distribution<> dis;
+        int totalValores;
+        int limite;
+	public:
+		AlgoritmosSubstituicao(int limite, int totalValores);
+        ~AlgoritmosSubstituicao();
+		string converter(int dec);
+		int gerar();
+        void gerarArquivo();
 
-public:
 
-    AlgoritmosSubstituicao(int tamMemoria, int tamPaginas,string metSubstituicao);
-    ~AlgoritmosSubstituicao();
-
-    void substituir(string algoritmo, int pagina);
-    int lru(int pagina);
-    int fifo(int pagina);
-    int nru(int pagina);
-    int lfu(int pagina);
-    int random();
-    //int converterHexaToDecimal(string pagina);
-    bool checkLixo (int pagina);
 };
 #endif
