@@ -1,0 +1,10 @@
+ AF W
+ 70 W
+ FF W
+ 175 W
+ 1B8 R
+ 15D R
+ 16F W
+ CE W
+ DF R
+ 1F R
