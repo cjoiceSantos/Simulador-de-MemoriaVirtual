@@ -21,7 +21,7 @@ class Memoria{
     Memoria(int tamMemoria, int tamFrame, string metSubstituicao);
     ~Memoria(); 
 
-    bool escrita(int pagina);
+    int escrita(int pagina);
     bool leitura(int pagina);
     int getTamMemoria();
     int getTamFrame();
@@ -34,7 +34,7 @@ class Memoria{
     int fifo(int pagina);
     int nru(int pagina);
     int lfu(int pagina);
-    int random(int pagina);
+    void random(int pagina);
 
 };
 #endif

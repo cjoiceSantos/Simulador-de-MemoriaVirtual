@@ -16,14 +16,19 @@ Memoria::~Memoria(){}
 
 //considerando o completamente associativo
 
-bool Memoria::escrita(int pagina){
-    if(frames.size() < totalPaginasNaMemoria){
+int Memoria::escrita(int pagina){
+    //verifico se a página ja está na memoria, te estiver não insere.
+    if(leitura(pagina)){
+        return 2;
+    }
+
+    if(frames.size() < totalPaginasNaMemoria){ // do 0 ate totalPaginasNaMemoria-1 
         frames.insert(pagina);
         atualizarEstruturas(pagina);
-        return true;
+        return 1;
     }
     substituir(pagina);
-    return false; 
+    return 0; 
 }
 
 bool Memoria::leitura(int pagina){ 
@@ -49,16 +54,13 @@ set<int> Memoria::getFrame(){
     return frames;
 }
 
-void Memoria::print(){
-    it = frames.begin();
-    while(it!=frames.end()){
-        cout << *it << " "; // *it no lugar de &it e um espaço para separar os itens
-        it = frames.erase(it); // o iterador retornado pelo erase aqui é o próximo item do seu set
-        //it++; -> não funciona quando está removendo o item durante a iteração, porque a remoção do item com o erase invalida o iterador corrente
+void Memoria::print(){ 
+    for (int it : frames){
+        cout << it << " "; 
     }
 }
 
-int Memoria::random(int pagina){ 
+void Memoria::random(int pagina){ 
     random_device rd;
 	default_random_engine gen(rd());
 	uniform_int_distribution<> dis(0,totalPaginasNaMemoria-1);
@@ -82,26 +84,26 @@ int Memoria::lfu(int pagina){}
 
 void Memoria::atualizarEstruturas(int pagina){
     //atualiza a fila
-    fila.push(pagina);
+   // fila.push(pagina);
     //atualiza a frequência
    // aux = frequencia.find(pagina)
     //frequencia.insert(pagina, aux++);
 }
 
 void Memoria::substituir(int pagina){
-    if(metSubstituicao.compare("random")){
+    if(!metSubstituicao.compare("random")){
         random(pagina);
     } 
-    if(metSubstituicao.compare("lru")){
+    if(!metSubstituicao.compare("lru")){
         lru(pagina);
     }
-    if(metSubstituicao.compare("fifo")){
+    if(!metSubstituicao.compare("fifo")){
         fifo(pagina);
     }
-    if(metSubstituicao.compare("nru")){
+    if(!metSubstituicao.compare("nru")){
         lru(pagina);
     }
-    if(metSubstituicao.compare("lfu")){
+    if(!metSubstituicao.compare("lfu")){
         lru(pagina);
     }
 }

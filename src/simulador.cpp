@@ -21,7 +21,6 @@ int main(int argc, char const *argv[])
    // AlgoritmosSubstituicao gerando_arquivo(1000, 1000);
     //gerando_arquivo.gerarArquivo();
 
-
     //VERIFICANDO PARÂMETROS
     if(argc != 5){
         cerr  <<"Parâmetros inválidos. Informe: "<< endl 
@@ -60,7 +59,7 @@ int main(int argc, char const *argv[])
 
     //AlgoritmosSubstituicao *alg_subst = new AlgoritmosSubstituicao(tamMemoria,tamPagina,algoritmo);
     string palavra, operacao;
-    int endDecimal, pagina, totalPalavras=0, paginasLidas=0,paginasEscritas=0, paginasSujas=0, faltaPaginas=0;
+    int endDecimal, pagina, totalPalavras=0, paginasLidas=0, paginasEscritas = 0, paginasSujas=0, faltaPaginas=0,paginasRepetidas=0,result;
     Memoria* memoria = new Memoria(tamMemoria, tamPagina,algoritmo);
 
     while (!arqEndercos.eof()){
@@ -77,30 +76,31 @@ int main(int argc, char const *argv[])
                 continue;
             }
             faltaPaginas++;
-            memoria->escrita(pagina);
+        }
+
+        result = memoria->escrita(pagina);
+        if(result==1){     
+            paginasEscritas++;
             continue;
-        } else {
-            
-            if(memoria->escrita(pagina)){    
-                paginasEscritas++;
-                continue;
-            }
-            paginasSujas++;
-        }       
+        }else if(result==2){
+            paginasRepetidas++;
+            continue;
+        }
+        paginasSujas++;           
     }
 
     cout << "RELATÓRIOS: " << endl <<
     "TOTAL PAGINAS NA MEMÓRIA: " << tamMemoria/tamPagina << endl <<
     "ALGORITMO SUBSTITUIÇÃO: " << algoritmo << endl <<
-    "TOTAL DE PALAVRAS: " << totalPalavras << endl <<
+    "PALAVRAS: " << totalPalavras << endl <<
     "TOTAL LEITURAS: " << paginasLidas+faltaPaginas << endl <<
     "  SUCESSO - " << paginasLidas << endl <<
-    "  FALHA   - " <<  faltaPaginas << endl <<
+    "  FALTA DE PÁGINA - " <<  faltaPaginas << endl <<
     "TOTAL ESCRITAS: " << paginasEscritas+paginasSujas << endl <<
     "  SUCESSO - " << paginasEscritas << endl << 
-    "  FALHA   - " << paginasSujas << endl;
+    "  REPETIÇÃO - " << paginasRepetidas << endl <<
+    "  SUBSTITUIDAS - " << paginasSujas << endl;
     memoria->print();
-
     arqEndercos.close();
 
  }
