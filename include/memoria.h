@@ -15,7 +15,10 @@ class Memoria{
     set<int> frames;
     queue<int> fila;
     map<int,int> frequencia;
-     
+    
+    int **f;
+    int n;
+ 
 
   public:
     Memoria(int tamMemoria, int tamFrame, string metSubstituicao);
