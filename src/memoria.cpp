@@ -15,7 +15,12 @@ Memoria::Memoria(int tamMemoria, int tamFrame, string metSubstituicao): tamMemor
     if (metSubstituicao == "nru"){
     	matrizNru = new int *[totalPaginasNaMemoria];
 	for (campos=0; campos<totalPaginasNaMemoria; campos++)
-	    matrizNru[campos] = new int[3];
+	    matrizNru[campos] = new int[2];
+	    for(campos=0; campos<totalPaginasNaMemoria; campos ++){ //para deixar os valores zerados. 
+                matrizNru[campos][1] = 0;
+		matrizNru[campos][2] = 0;
+        }
+
     }	
     //================================================================
     //================================================================
