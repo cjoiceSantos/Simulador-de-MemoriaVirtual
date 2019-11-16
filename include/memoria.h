@@ -16,8 +16,8 @@ class Memoria{
     queue<int> fila;
     map<int,int> frequencia;
     
-    int **f;
-    int n;
+    int **matrizNru;
+    int campos;
  
 
   public:

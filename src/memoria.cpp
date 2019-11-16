@@ -13,9 +13,9 @@ Memoria::Memoria(int tamMemoria, int tamFrame, string metSubstituicao): tamMemor
     totalPaginasNaMemoria = tamMemoria/tamFrame;
     //criando uma matriz para o nru.==================================
     if (metSubstituicao == "nru"){
-    	f = new int *[totalPaginasNaMemoria];
-	for (n=0; n<totalPaginasNaMemoria; n++)
-	    f[n] = new int[3];
+    	matrizNru = new int *[totalPaginasNaMemoria];
+	for (campos=0; campos<totalPaginasNaMemoria; campos++)
+	    matrizNru[campos] = new int[3];
     }	
     //================================================================
     //================================================================
@@ -36,10 +36,10 @@ int Memoria::escrita(int pagina){
 	//==============================================================================
 	if (metSubstituicao == "nru"){
 	    //na escrita o nru altera os campos de referencia e escrita.
-	    for(n=0; n<totalPaginasNaMemoria; n ++){
-                if(f[n][0] == pagina){
-                    f[n][1] = 1;
-		    f[n][2] = 1;
+	    for(campos=0; campos<totalPaginasNaMemoria; campos ++){
+                if(matrizNru[campos][0] == pagina){
+                    matrizNru[campos][1] = 1;
+		    matrizNru[campos][2] = 1;
                 }
             } 
 	//==============================================================================
@@ -59,9 +59,9 @@ bool Memoria::leitura(int pagina){
 
  	//se for no nru==================================
 	if (metSubstituicao == "nru"){
-	    for(n=0; n<totalPaginasNaMemoria; n ++){
-                if(f[n][0] == pagina){
-	            f[n][1] = 1;
+	    for(campos=0; campos<totalPaginasNaMemoria; campos ++){
+                if(matrizNru[campos][0] == pagina){
+	            matrizNru[campos][1] = 1;
 	        }
             } 		
         }
@@ -115,9 +115,9 @@ int Memoria::fifo(int pagina){}
 
 
 int Memoria::nru(int pagina){
-    for(n=0; n<totalPaginasNaMemoria; n ++){
-         if(f[n][1] == 0 && f[n][2] == 0){
-              f[n][0] = pagina;
+    for(campos=0; campos<totalPaginasNaMemoria; campos ++){
+         if(matrizNru[campos][1] == 0 && matrizNru[campos][2] == 0){
+              matrizNru[campos][0] = pagina;
                 }
             } 
 }
@@ -150,8 +150,8 @@ void Memoria::substituir(int pagina){
     if(!metSubstituicao.compare("nru")){
 	//quando ocorre a falta de pagina no nru, ele zera todos os campos de 'referencia'
 	//os campos de 'escrita' nunca são zerados.
-	for(n=0; n<totalPaginasNaMemoria; n ++){  //para zerar os campos 'referencia' da matriz do nru
-	    f[n][1] = 0;
+	for(campos=0; campos<totalPaginasNaMemoria; campos ++){  //para zerar os campos 'referencia' da matriz do nru
+	    matrizNru[campos][1] = 0;
 	}
         lru(pagina);
     }
