@@ -5,7 +5,8 @@
 
 using namespace std;
 
-set<int>::iterator it, aux;
+set<int>::iterator it; 
+set<int>::iterator aux;
 int posicao; 
 
 Memoria::Memoria(int tamMemoria, int tamFrame, string metSubstituicao): tamMemoria(tamMemoria), tamFrame(tamFrame), metSubstituicao(metSubstituicao){ 
@@ -14,14 +15,11 @@ Memoria::Memoria(int tamMemoria, int tamFrame, string metSubstituicao): tamMemor
 
 Memoria::~Memoria(){}
 
-//considerando o completamente associativo
-
 int Memoria::escrita(int pagina){
     //verifico se a página ja está na memoria, te estiver não insere.
     if(leitura(pagina)){
         return 2;
     }
-
     if(frames.size() < totalPaginasNaMemoria){ // do 0 ate totalPaginasNaMemoria-1 
         frames.insert(pagina);
         atualizarEstruturas(pagina);
@@ -67,16 +65,30 @@ void Memoria::random(int pagina){
     //posição aleatoria
     posicao = dis(gen);
     it = frames.begin();
-    advance(it, posicao); //função  advance avança o iterador fornecido ate enésimo elemento
+    advance(it, posicao); //função  advance avança o iterador fornecido ate enésimo elemento indicado pela posição sorteada
     //removo a pagina antiga sorteada
     frames.erase(it);
     //adiciono a nova página.
     frames.insert(pagina);
 }
 
-int Memoria::lru(int pagina){}
+int Memoria::lru(int pagina){
+    
+}
 
-int Memoria::fifo(int pagina){}
+int Memoria::fifo(int pagina){
+    //verifico a página que tem que sair da fila
+    int paginaaSair = fila.front();
+    fila.pop(); //remove da fila
+    
+    //busco a página na memória e remoro
+    it = frames.find(paginaaSair);
+    frames.erase(it);
+    //insiro a nova página
+    frames.insert(pagina);  
+    fila.push(pagina); 
+}
+
 
 int Memoria::nru(int pagina){}
 
@@ -84,10 +96,14 @@ int Memoria::lfu(int pagina){}
 
 void Memoria::atualizarEstruturas(int pagina){
     //atualiza a fila
-   // fila.push(pagina);
-    //atualiza a frequência
-   // aux = frequencia.find(pagina)
-    //frequencia.insert(pagina, aux++);
+    fila.push(pagina);
+    //busco no map, se não tem eu ensiro com inicial 1; 
+  /*  aux = frames.find(pagina);
+    if(aux == frames.end()){
+        frequencia.insert(pagina, 1);
+    }else{
+         aux->second++;
+    }*/
 }
 
 void Memoria::substituir(int pagina){
