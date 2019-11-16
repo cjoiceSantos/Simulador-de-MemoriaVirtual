@@ -18,6 +18,7 @@ Memoria::Memoria(int tamMemoria, int tamFrame, string metSubstituicao): tamMemor
 	    f[n] = new int[3];
     }	
     //================================================================
+    //================================================================
 }
 
 Memoria::~Memoria(){}
