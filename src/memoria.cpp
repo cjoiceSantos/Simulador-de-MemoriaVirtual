@@ -153,12 +153,12 @@ void Memoria::substituir(int pagina){
         fifo(pagina);
     }
     if(!metSubstituicao.compare("nru")){
-	//quando ocorre a falta de pagina no nru, ele zera todos os campos de 'referencia'
-	//os campos de 'escrita' nunca são zerados.
-	for(campos=0; campos<totalPaginasNaMemoria; campos ++){  //para zerar os campos 'referencia' da matriz do nru
-	    matrizNru[campos][1] = 0;
-	}
-        lru(pagina);
+        //quando ocorre a falta de pagina no nru, ele zera todos os campos de 'referencia'
+        //os campos de 'escrita' nunca são zerados.
+        for(campos=0; campos<totalPaginasNaMemoria; campos ++){  //para zerar os campos 'referencia' da matriz do nru
+            matrizNru[campos][1] = 0;
+        }
+        nru(pagina);
     }
     if(!metSubstituicao.compare("lfu")){
         lru(pagina);
