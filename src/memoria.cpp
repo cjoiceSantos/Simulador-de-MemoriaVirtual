@@ -12,6 +12,19 @@ int posicao;
 
 Memoria::Memoria(int tamMemoria, int tamFrame, string metSubstituicao): tamMemoria(tamMemoria), tamFrame(tamFrame), metSubstituicao(metSubstituicao){ 
     totalPaginasNaMemoria = tamMemoria/tamFrame;
+    //criando uma matriz para o nru.==================================
+    if (metSubstituicao == "nru"){
+    	matrizNru = new int *[totalPaginasNaMemoria];
+	for (campos=0; campos<totalPaginasNaMemoria; campos++)
+	    matrizNru[campos] = new int[2];
+	    for(campos=0; campos<totalPaginasNaMemoria; campos ++){ //para deixar os valores zerados. 
+                matrizNru[campos][1] = 0;
+		matrizNru[campos][2] = 0;
+        }
+
+    }	
+    //================================================================
+    //================================================================
 }
 
 Memoria::~Memoria(){}
@@ -22,7 +35,20 @@ int Memoria::escrita(int pagina){
         return 2;
     }
     if(frames.size() < totalPaginasNaMemoria){ // do 0 ate totalPaginasNaMemoria-1 
-        frames.insert(pagina);
+        
+	//==============================================================================
+	if (metSubstituicao == "nru"){
+	    //na escrita o nru altera os campos de referencia e escrita.
+	    for(campos=0; campos<totalPaginasNaMemoria; campos ++){
+                if(matrizNru[campos][0] == pagina){
+                    matrizNru[campos][1] = 1;
+		    matrizNru[campos][2] = 1;
+                }
+            } 
+	//==============================================================================
+	    
+    	}
+	frames.insert(pagina);
         atualizarEstruturas(pagina);
         return 1;
     }
@@ -30,11 +56,23 @@ int Memoria::escrita(int pagina){
     return 0; 
 }
 
-bool Memoria::leitura(int pagina){ 
+bool Memoria::leitura(int pagina){ 	
     it = frames.find(pagina);
     if(it != frames.end()){
-        return true;
+
+ 	//se for no nru==================================
+	if (metSubstituicao == "nru"){
+	    for(campos=0; campos<totalPaginasNaMemoria; campos ++){
+                if(matrizNru[campos][0] == pagina){
+	            matrizNru[campos][1] = 1;
+	        }
+            } 		
+        }
+	//================================================
+
+    return true;
     }
+    //chamar o metodo de substituir aqui tbm
     return false;
 }
 
@@ -94,8 +132,13 @@ void Memoria::fifo(int pagina){
     fila.push(pagina); 
 }
 
-
-int Memoria::nru(int pagina){}
+int Memoria::nru(int pagina){
+    for(campos=0; campos<totalPaginasNaMemoria; campos ++){
+         if(matrizNru[campos][1] == 0 && matrizNru[campos][2] == 0){
+              matrizNru[campos][0] = pagina;
+                }
+            } 
+}
 
 void Memoria::lfu(int pagina){
     int menor;
@@ -171,6 +214,11 @@ void Memoria::substituir(int pagina){
         fifo(pagina);
     }
     if(!metSubstituicao.compare("nru")){
+        //quando ocorre a falta de pagina no nru, ele zera todos os campos de 'referencia'
+        //os campos de 'escrita' nunca são zerados.
+        for(campos=0; campos<totalPaginasNaMemoria; campos ++){  //para zerar os campos 'referencia' da matriz do nru
+            matrizNru[campos][1] = 0;
+        }
         nru(pagina);
     }
     if(!metSubstituicao.compare("lfu")){
