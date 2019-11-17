@@ -74,7 +74,11 @@ void Memoria::random(int pagina){
 }
 
 int Memoria::lru(int pagina){
-    
+    set<int>::iterator it = frames.find(ordemDeUso[0]);
+    frames.erase(it);
+    frames.insert(pagina);
+    ordemDeUso.erase(ordemDeUso.begin());
+    ordemDeUso.push_back(pagina);
 }
 
 void Memoria::fifo(int pagina){
@@ -109,9 +113,11 @@ void Memoria::lfu(int pagina){
 
     // Acha a pagina que vai ser substituida
     set<int>::iterator frameEscolhido = frames.find(paginaEscolhida->first);
+
     // Apaga o frame antigo e adiciona o novo
     frames.erase(frameEscolhido);
-    frames.insert(paginaEscolhida->first);
+    frames.insert(pagina);
+
     // Apaga a pagina antiga da frequencia e adiciana a nova
     frequencia.erase(paginaEscolhida);
     frequencia.insert(pair<int, int>(pagina, 1));  
@@ -119,7 +125,8 @@ void Memoria::lfu(int pagina){
 
 void Memoria::atualizarEstruturas(int pagina){
     //atualiza a fila
-    fila.push(pagina);
+    if (!metSubstituicao.compare("fifo"))
+        fila.push(pagina);
     //busco no map, se não tem eu ensiro com inicial 1; 
   /*  aux = frames.find(pagina);
     if(aux == frames.end()){
@@ -130,7 +137,26 @@ void Memoria::atualizarEstruturas(int pagina){
     // Atualiza a frequencia
     if (!metSubstituicao.compare("lfu")){
         map<int, int>::iterator it = frequencia.find(pagina);
-        it->second = it->second++;
+        if (it != frequencia.end())
+            frequencia[pagina] += 1;
+        else
+            frequencia.insert(pair<int, int> (pagina, 1));
+    }
+    else if (!metSubstituicao.compare("lru")){
+        vector<int>::iterator it;
+        for (it = ordemDeUso.begin(); it != ordemDeUso.end(); it++){
+            if (*it == pagina){
+                break;
+            }
+        }
+        // Caso a pagina ainda não esteja no vector oredemDeUso
+        if (it == ordemDeUso.end()){
+            ordemDeUso.push_back(pagina);
+        }
+        else{ // Caso ja esteja, tem que ir pro final
+            ordemDeUso.erase(it);
+            ordemDeUso.push_back(pagina);
+        }
     }
 }
 
@@ -145,9 +171,9 @@ void Memoria::substituir(int pagina){
         fifo(pagina);
     }
     if(!metSubstituicao.compare("nru")){
-        lru(pagina);
+        nru(pagina);
     }
     if(!metSubstituicao.compare("lfu")){
-        lru(pagina);
+        lfu(pagina);
     }
 }

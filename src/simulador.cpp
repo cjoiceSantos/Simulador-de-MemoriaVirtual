@@ -8,8 +8,8 @@
 using namespace std;
 
 // Converte a palavra em hexadecimal para decimal
-int valor;
 int  converterHexaToDecimal(string palavraHex){
+    int valor;
     stringstream stream;
     stream << palavraHex;
     stream >> hex >> valor;
@@ -74,10 +74,11 @@ int main(int argc, char const *argv[])
         }
 
         result = memoria->escrita(pagina);
-        if(result==1){     
+        if(result == 1){     
             paginasEscritas++;
             continue;
-        }else if(result==2){
+        }
+        else if(result == 2){
             paginasRepetidas++;
             continue;
         }
