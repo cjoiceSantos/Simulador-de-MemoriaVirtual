@@ -8,8 +8,8 @@
 using namespace std;
 
 // Converte a palavra em hexadecimal para decimal
-int valor;
 int  converterHexaToDecimal(string palavraHex){
+    int valor;
     stringstream stream;
     stream << palavraHex;
     stream >> hex >> valor;
@@ -33,11 +33,6 @@ int main(int argc, char const *argv[])
 
     string algoritmo = argv[1], arqEnderecos = argv[2], line;
 	int tamPagina = atoi(argv[3]), tamMemoria = atoi(argv[4]);
-
-   /* if(algoritmo == "lru" || algoritmo == "fifo" || algoritmo == "nru" || algoritmo == "lfu" && algoritmo != "random"){
-           cerr << "ERRO: ALGORITMO DE SUBSTITUIÇÃO INVÁLIDO." << endl;
-           return 1;
-    } */
 
     if(tamMemoria < 128 && tamMemoria > 16384){
         cerr << "ERRO: MEMÓRIA DEVE ESTAR ENTRE 128 E 16384." << endl;
@@ -79,10 +74,11 @@ int main(int argc, char const *argv[])
         }
 
         result = memoria->escrita(pagina);
-        if(result==1){     
+        if(result == 1){     
             paginasEscritas++;
             continue;
-        }else if(result==2){
+        }
+        else if(result == 2){
             paginasRepetidas++;
             continue;
         }
@@ -100,7 +96,7 @@ int main(int argc, char const *argv[])
     "  SUCESSO - " << paginasEscritas << endl << 
     "  REPETIÇÃO - " << paginasRepetidas << endl <<
     "  SUBSTITUIDAS - " << paginasSujas << endl;
-    memoria->print();
+    //memoria->print();
     arqEndercos.close();
 
  }
