@@ -2,6 +2,7 @@
 #include <iostream>
 #include <algorithm> 
 #include <iterator> 
+#include <random>
 
 using namespace std;
 
@@ -44,7 +45,7 @@ int Memoria::getTamFrame() {
     return tamFrame;
 }
 
-int Memoria::getTotalPaginasNaMemoria(){
+int unsigned Memoria::getTotalPaginasNaMemoria(){
     return totalPaginasNaMemoria;
 }
 
@@ -76,7 +77,7 @@ int Memoria::lru(int pagina){
     
 }
 
-int Memoria::fifo(int pagina){
+void Memoria::fifo(int pagina){
     //verifico a página que tem que sair da fila
     int paginaaSair = fila.front();
     fila.pop(); //remove da fila
@@ -92,7 +93,29 @@ int Memoria::fifo(int pagina){
 
 int Memoria::nru(int pagina){}
 
-int Memoria::lfu(int pagina){}
+void Memoria::lfu(int pagina){
+    int menor;
+    map<int, int>::iterator paginaEscolhida;
+    for (map<int, int>::iterator it = frequencia.begin(); it != frequencia.end(); it++){
+        if (it == frequencia.begin()){
+            menor = it->second;
+            paginaEscolhida = it; 
+        }
+        else if (it->second < menor){
+            menor = it->second;
+            paginaEscolhida = it; 
+        }          
+    }
+
+    // Acha a pagina que vai ser substituida
+    set<int>::iterator frameEscolhido = frames.find(paginaEscolhida->first);
+    // Apaga o frame antigo e adiciona o novo
+    frames.erase(frameEscolhido);
+    frames.insert(paginaEscolhida->first);
+    // Apaga a pagina antiga da frequencia e adiciana a nova
+    frequencia.erase(paginaEscolhida);
+    frequencia.insert(pair<int, int>(pagina, 1));  
+}
 
 void Memoria::atualizarEstruturas(int pagina){
     //atualiza a fila
@@ -104,6 +127,11 @@ void Memoria::atualizarEstruturas(int pagina){
     }else{
          aux->second++;
     }*/
+    // Atualiza a frequencia
+    if (!metSubstituicao.compare("lfu")){
+        map<int, int>::iterator it = frequencia.find(pagina);
+        it->second = it->second++;
+    }
 }
 
 void Memoria::substituir(int pagina){
