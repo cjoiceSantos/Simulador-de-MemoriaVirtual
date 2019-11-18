@@ -18,7 +18,7 @@ int  converterHexaToDecimal(string palavraHex){
 
 int main(int argc, char const *argv[])
 {   
-   // AlgoritmosSubstituicao gerando_arquivo(1000, 1000);
+   // AlgoritmosGeradorEnd gerando_arquivo(1000, 1000);
     //gerando_arquivo.gerarArquivo();
 
     //VERIFICANDO PARÂMETROS
@@ -72,7 +72,6 @@ int main(int argc, char const *argv[])
             }
             faltaPaginas++;
         }
-
         result = memoria->escrita(pagina);
         if(result == 1){     
             paginasEscritas++;

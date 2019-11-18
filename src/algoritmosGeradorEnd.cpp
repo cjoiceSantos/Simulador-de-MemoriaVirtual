@@ -6,13 +6,13 @@
 
 using namespace std;
 
-AlgoritmosSubstituicao::AlgoritmosSubstituicao(int limite, int totalValores):limite(limite), totalValores(totalValores), rd(), gen(rd()), dis(0, limite){
+AlgoritmosGeradorEnd::AlgoritmosGeradorEnd(int limite, int totalValores):limite(limite), totalValores(totalValores), rd(), gen(rd()), dis(0, limite){
 	valor=std::round(dis(gen));
 }
 
-AlgoritmosSubstituicao::~AlgoritmosSubstituicao(){}
+AlgoritmosGeradorEnd::~AlgoritmosGeradorEnd(){}
 
-string AlgoritmosSubstituicao::converter(int dec){	
+string AlgoritmosGeradorEnd::converter(int dec){	
 	int quoc = dec;
 	int tamanho = 0;
 	string resultado = " ";
@@ -71,12 +71,12 @@ string AlgoritmosSubstituicao::converter(int dec){
 	return resultado;
 }
 
-int AlgoritmosSubstituicao::gerar(){
+int AlgoritmosGeradorEnd::gerar(){
 	valor=std::round(dis(gen));
 	return valor;
 }
 
-void AlgoritmosSubstituicao::gerarArquivo(){
+void AlgoritmosGeradorEnd::gerarArquivo(){
 	//a saida vai ser jogada nesse File
 	std::ofstream outFile;
 	outFile.open("saida.txt", std::ios::out);

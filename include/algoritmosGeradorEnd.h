@@ -6,7 +6,7 @@
 
 using namespace std;
 
-class AlgoritmosSubstituicao{
+class AlgoritmosGeradorEnd{
     private:
         int valor;
 		random_device rd;
@@ -15,8 +15,8 @@ class AlgoritmosSubstituicao{
         int totalValores;
         int limite;
 	public:
-		AlgoritmosSubstituicao(int limite, int totalValores);
-        ~AlgoritmosSubstituicao();
+		AlgoritmosGeradorEnd(int limite, int totalValores);
+        ~AlgoritmosGeradorEnd();
 		string converter(int dec);
 		int gerar();
         void gerarArquivo();
