@@ -17,6 +17,7 @@ class JanelaPrincipal : public Window
 		long quantidadeDeFrames;
 		long quantidadeDePaginas;
 		string nomeDoarquivo;
+		vector<HBox*> informacoes;
 
 		VBox boxPrincipal;
 

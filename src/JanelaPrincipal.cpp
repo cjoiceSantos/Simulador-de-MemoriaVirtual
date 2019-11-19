@@ -159,6 +159,12 @@ void JanelaPrincipal::funcaoBotaoSimular()
 
     Memoria* memoria = new Memoria(quantidadeDeFrames, quantidadeDePaginas, algoritmo);
 
+	for (HBox *informacao : informacoes)
+	{
+		boxInformacoes.remove(*informacao);
+	}
+	informacoes.clear();
+
 	addInfo("CARREGANDO...");
 
     while (!arqEndercos.eof()){
@@ -228,6 +234,7 @@ void JanelaPrincipal::addInfo(string texto)
 	boxInformacaoUnica->pack_start(*informacao);
 	boxInformacaoUnica->show();
 	informacao->show();
+	informacoes.push_back(boxInformacaoUnica);
 }
 
 void JanelaPrincipal::gerarRelatorio(
