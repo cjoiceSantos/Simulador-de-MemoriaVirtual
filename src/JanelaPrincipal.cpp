@@ -85,6 +85,13 @@ JanelaPrincipal::~JanelaPrincipal(){}
 
 void JanelaPrincipal::funcaoBotaoSimular()
 {
+	// Limpeza da tela
+	for (HBox *informacao : informacoes)
+	{
+		boxInformacoes.remove(*informacao);
+	}
+	informacoes.clear();
+
 	// Validação dos dados digitados
 	try {
 		quantidadeDeFrames = stoi(entryFrame.get_text());
@@ -98,13 +105,13 @@ void JanelaPrincipal::funcaoBotaoSimular()
 		return;
 	}
 
-	if(quantidadeDeFrames < 128 && quantidadeDeFrames > 16384){
+	if(quantidadeDeFrames < 128 || quantidadeDeFrames > 16384){
 		MessageDialog dialog(*this, "");
 		dialog.set_secondary_text("A quantidade de frames tem que estar entre 128 e 16384");
   		dialog.run();		
 		return;
     }
-    if(quantidadeDePaginas < 2 && quantidadeDePaginas > 64 ){
+    if(quantidadeDePaginas < 2 || quantidadeDePaginas > 64 ){
         MessageDialog dialog(*this, "");
 		dialog.set_secondary_text("A quantidade de paginas tem que estar entre 2 e 64");
   		dialog.run();		
@@ -158,14 +165,6 @@ void JanelaPrincipal::funcaoBotaoSimular()
 	int result;
 
     Memoria* memoria = new Memoria(quantidadeDeFrames, quantidadeDePaginas, algoritmo);
-
-	for (HBox *informacao : informacoes)
-	{
-		boxInformacoes.remove(*informacao);
-	}
-	informacoes.clear();
-
-	addInfo("CARREGANDO...");
 
     while (!arqEndercos.eof()){
         getline(arqEndercos,palavra,' ');
@@ -231,7 +230,7 @@ void JanelaPrincipal::addInfo(string texto)
 	HBox *boxInformacaoUnica = new HBox;
 	Label *informacao = new Label(texto);
 	boxInformacoes.pack_start(*boxInformacaoUnica, PACK_SHRINK, 10);
-	boxInformacaoUnica->pack_start(*informacao);
+	boxInformacaoUnica->pack_start(*informacao, PACK_SHRINK, 10);
 	boxInformacaoUnica->show();
 	informacao->show();
 	informacoes.push_back(boxInformacaoUnica);
@@ -243,14 +242,16 @@ void JanelaPrincipal::gerarRelatorio(
 	int faltaPaginas, int paginasSujas, 
 	int paginasEscritas, int paginasRepetidas
 	){
+	for(unsigned int i = 0; i < algoritmo.length(); i++)
+			algoritmo[i] = toupper(algoritmo[i]);
 	addInfo("TOTAL PAGINAS NA MEMÓRIA: " + to_string(tamMemoria / tamPagina));
 	addInfo("ALGORITMO SUBSTITUIÇÃO: " + algoritmo);
 	addInfo("PALAVRAS: " + to_string(totalPalavras));
 	addInfo("TOTAL LEITURAS: " + to_string(paginasLidas+faltaPaginas));
-	addInfo("  SUCESSO - " + to_string(paginasLidas));
-	addInfo("  FALTA DE PÁGINA - "+ to_string( faltaPaginas));
+	addInfo("		-SUCESSO: " + to_string(paginasLidas));
+	addInfo("		-FALTA DE PÁGINA: "+ to_string( faltaPaginas));
 	addInfo("TOTAL ESCRITAS: " + to_string(paginasEscritas+paginasSujas));
-	addInfo("  SUCESSO - " + to_string(paginasEscritas)); 
-	addInfo("  REPETIÇÃO - " + to_string(paginasRepetidas));
-	addInfo("  SUBSTITUIDAS - " + to_string(paginasSujas));
+	addInfo("		-SUCESSO: " + to_string(paginasEscritas)); 
+	addInfo("		-REPETIÇÃO: " + to_string(paginasRepetidas));
+	addInfo("		-SUBSTITUIDAS: " + to_string(paginasSujas));
 }
