@@ -16,6 +16,7 @@ int  converterHexaToDecimal(string palavraHex){
     return valor;
 }
 
+
 int main(int argc, char const *argv[])
 {   
    // AlgoritmosSubstituicao gerando_arquivo(1000, 1000);
