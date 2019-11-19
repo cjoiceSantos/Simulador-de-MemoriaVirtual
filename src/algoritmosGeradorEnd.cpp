@@ -6,7 +6,12 @@
 
 using namespace std;
 
-AlgoritmosGeradorEnd::AlgoritmosGeradorEnd(int limite, int totalValores):limite(limite), totalValores(totalValores), rd(), gen(rd()), dis(0, limite){
+AlgoritmosGeradorEnd::AlgoritmosGeradorEnd(int limite, int totalValores, string nomeArquivo):
+	limite(limite), 
+	totalValores(totalValores), 
+	nomeArquivo(nomeArquivo), 
+	rd(), gen(rd()), 
+	dis(0, limite){
 	valor = std::round(dis(gen));
 }
 
@@ -79,27 +84,34 @@ int AlgoritmosGeradorEnd::gerar(){
 void AlgoritmosGeradorEnd::gerarArquivo(){
 	//a saida vai ser jogada nesse File
 	std::ofstream outFile;
-	outFile.open("saida.txt", std::ios::out);
+	outFile.open("arquivos_Teste/" + nomeArquivo + ".txt", ios::out);
 
 	std::string hexadecimal;	// valor hexadec q vai ser gerado	
 	 
-	for(int i=0; i<totalValores ; i++){
+	for(int i = 0; i < totalValores ; i++){
 		int valor = gerar();
-		hexadecimal= converter(valor);
+		hexadecimal = converter(valor);
 		outFile << hexadecimal ;
 		outFile << " ";
 
 		int aux = gerar();	//aux vai gerar um valor aleatorio para leitura ou escrita
 		char wr;
-			if (aux%2 == 0){
+			if (aux % 2 == 0){
 				wr = 'W';
 			}
 			else {
 				wr = 'R';
 			}
 		outFile << wr ;
-		outFile << '\n';
+		if (i != totalValores - 1)
+			outFile << '\n';
 	}
 
 	outFile.close();
+}
+
+int main(int argc, char const *argv[])
+{
+	AlgoritmosGeradorEnd *algoritmosGeradorEnd = new AlgoritmosGeradorEnd(stoi(argv[1]), stoi(argv[2]), argv[3]);
+	algoritmosGeradorEnd->gerarArquivo();
 }
