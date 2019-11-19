@@ -11,6 +11,10 @@
 
 ## Instruções:
 
+Para compilar é necessario ter instalado o gtkmm 3
+
+Caso não tenha, acesse: https://www.gtkmm.org/pt_BR/download.html
+
 ### Para compilar:
 
 	make
@@ -20,5 +24,6 @@
     make clean
     
 ### Para rodar:
-    make run PART1=*algoritimo de substituição* PART2=*arquivo que contém os endereços* PART3=*tamanho das paginas* PART4=*tamanho total da memoria*
+
+    make run
     
