@@ -115,10 +115,23 @@ void Memoria::fifo(int pagina){
 }
 
 void Memoria::nru(int pagina){
+    int aux = 0;
     for(campos=0; campos<totalPaginasNaMemoria; campos ++){
          if(matrizNru[campos][1] == 0 && matrizNru[campos][2] == 0){
               matrizNru[campos][0] = pagina;
-        }
+	      matrizNru[campos][1] = 1;
+	      aux = 1;
+	 }
+		 
+    }
+    if ((aux = 0)){
+         for(campos=0; campos<totalPaginasNaMemoria; campos ++){
+         	if(matrizNru[campos][1] == 0 && matrizNru[campos][2] == 1){
+              	    matrizNru[campos][0] = pagina;
+              	    matrizNru[campos][1] = 1;
+              	    aux = 1;
+         	}
+    	}
     } 
 }
 
