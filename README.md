@@ -20,5 +20,5 @@
     make clean
     
 ### Para rodar:
-    make run PART1=*algoritimo de substituição* PART2=*arquivo* que contém os endereços PART3=*tamanho das paginas* PART4=*tamanho total da memoria*
+    make run PART1=*algoritimo de substituição* PART2=*arquivo que contém os endereços* PART3=*tamanho das paginas* PART4=*tamanho total da memoria*
     
