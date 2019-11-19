@@ -38,20 +38,20 @@ int Memoria::escrita(int pagina){
         
 	//==============================================================================
     //poderia tá em atualizar página?
-	if (metSubstituicao == "nru"){
-	    //na escrita o nru altera os campos de referencia e escrita.
-	    for(campos=0; campos<totalPaginasNaMemoria; campos ++){
+        if (metSubstituicao == "nru"){
+            //na escrita o nru altera os campos de referencia e escrita.
+            for(campos=0; campos<totalPaginasNaMemoria; campos ++){
                 if(matrizNru[campos][0] == pagina){
                     matrizNru[campos][1] = 1;
-		    matrizNru[campos][2] = 1;
+                    matrizNru[campos][2] = 1;
                 }
             }
         } 
-	//==============================================================================
-	    
-	frames.insert(pagina);
-    atualizarEstruturas(pagina);
-    return 1; //página inserida 
+        //==============================================================================
+            
+        frames.insert(pagina);
+        atualizarEstruturas(pagina);
+        return 1; //página inserida 
     }
     
     //Se não há mais espaço, substitui a página
@@ -64,16 +64,16 @@ bool Memoria::leitura(int pagina){
     if(it != frames.end()){
 
  	//se for no nru==================================
-	if (metSubstituicao == "nru"){
-	    for(campos=0; campos<totalPaginasNaMemoria; campos ++){
+        if (metSubstituicao == "nru"){
+            for(campos=0; campos<totalPaginasNaMemoria; campos ++){
                 if(matrizNru[campos][0] == pagina){
-	            matrizNru[campos][1] = 1;
-	        }
+                matrizNru[campos][1] = 1;
+                }
             } 		
         }
 	//================================================
     
-    return true;
+        return true;
     }
     //No simulador é feito a chamada da escrita para a página faltante ser escrita na memória
     return false;
@@ -124,7 +124,7 @@ void Memoria::nru(int pagina){
 	 }
 		 
     }
-    if ((aux = 0)){
+    if ((aux == 0)){
          for(campos=0; campos<totalPaginasNaMemoria; campos ++){
          	if(matrizNru[campos][1] == 0 && matrizNru[campos][2] == 1){
               	    matrizNru[campos][0] = pagina;
