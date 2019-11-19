@@ -230,7 +230,7 @@ void JanelaPrincipal::addInfo(string texto)
 	HBox *boxInformacaoUnica = new HBox;
 	Label *informacao = new Label(texto);
 	boxInformacoes.pack_start(*boxInformacaoUnica, PACK_SHRINK, 10);
-	boxInformacaoUnica->pack_start(*informacao, PACK_SHRINK, 10);
+	boxInformacaoUnica->pack_start(*informacao, PACK_SHRINK, 400);
 	boxInformacaoUnica->show();
 	informacao->show();
 	informacoes.push_back(boxInformacaoUnica);
