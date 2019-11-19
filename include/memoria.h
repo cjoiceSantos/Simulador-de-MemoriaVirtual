@@ -16,7 +16,7 @@ class Memoria{
     queue<int> fila;
     map<int,int> frequencia;
     int **matrizNru;
-    int campos;
+    int unsigned campos;
     vector<int> ordemDeUso;
 
   public:
@@ -32,9 +32,9 @@ class Memoria{
     void print();
     void atualizarEstruturas(int pagina);
     void substituir(int pagina);
-    int lru(int pagina);
+    void lru(int pagina);
     void fifo(int pagina);
-    int nru(int pagina);
+    void nru(int pagina);
     void lfu(int pagina);
     void random(int pagina);
 

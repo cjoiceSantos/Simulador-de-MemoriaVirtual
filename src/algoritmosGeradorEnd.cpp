@@ -7,7 +7,7 @@
 using namespace std;
 
 AlgoritmosGeradorEnd::AlgoritmosGeradorEnd(int limite, int totalValores):limite(limite), totalValores(totalValores), rd(), gen(rd()), dis(0, limite){
-	valor=std::round(dis(gen));
+	valor = std::round(dis(gen));
 }
 
 AlgoritmosGeradorEnd::~AlgoritmosGeradorEnd(){}
@@ -23,7 +23,7 @@ string AlgoritmosGeradorEnd::converter(int dec){
 		tamanho++;
 	}
 	
-	int rest[tamanho];	
+	int *rest = new int[tamanho];	
 	int aux = tamanho;
 	quoc = dec;	
     //	operando

@@ -8,12 +8,13 @@ using namespace std;
 
 class AlgoritmosGeradorEnd{
     private:
-        int valor;
+	    int limite;
+        int totalValores;
 		random_device rd;
 		default_random_engine gen;
 		uniform_int_distribution<> dis;
-        int totalValores;
-        int limite;
+        int valor;
+		
 	public:
 		AlgoritmosGeradorEnd(int limite, int totalValores);
         ~AlgoritmosGeradorEnd();

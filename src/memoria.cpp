@@ -13,15 +13,15 @@ int posicao;
 
 Memoria::Memoria(int tamMemoria, int tamFrame, string metSubstituicao): tamMemoria(tamMemoria), tamFrame(tamFrame), metSubstituicao(metSubstituicao){ 
     totalPaginasNaMemoria = tamMemoria/tamFrame;
-    
+
     //criando uma matriz para o nru.
-    if (metSubstituicao == "nru"){
-    	matrizNru = new int *[totalPaginasNaMemoria];
-	for (campos=0; campos<totalPaginasNaMemoria; campos++)
-	    matrizNru[campos] = new int[2];
-	    for(campos=0; campos<totalPaginasNaMemoria; campos ++){ //para deixar os valores zerados. 
-                matrizNru[campos][1] = 0;
-		matrizNru[campos][2] = 0;
+    if(metSubstituicao == "nru"){
+        matrizNru = new int *[totalPaginasNaMemoria];
+        for(campos = 0; campos < totalPaginasNaMemoria; campos++)
+            matrizNru[campos] = new int[2];
+        for(campos = 0; campos < totalPaginasNaMemoria; campos ++){ //para deixar os valores zerados. 
+            matrizNru[campos][1] = 0;
+        matrizNru[campos][2] = 0;
         }
     }	
 }
@@ -94,7 +94,7 @@ void Memoria::random(int pagina){
     frames.insert(pagina);
 }
 
-int Memoria::lru(int pagina){
+void Memoria::lru(int pagina){
     it = frames.find(ordemDeUso[0]);
     frames.erase(it);
     frames.insert(pagina);
@@ -114,12 +114,12 @@ void Memoria::fifo(int pagina){
     fila.push(pagina); 
 }
 
-int Memoria::nru(int pagina){
+void Memoria::nru(int pagina){
     for(campos=0; campos<totalPaginasNaMemoria; campos ++){
          if(matrizNru[campos][1] == 0 && matrizNru[campos][2] == 0){
               matrizNru[campos][0] = pagina;
-                }
-            } 
+        }
+    } 
 }
 
 void Memoria::lfu(int pagina){
