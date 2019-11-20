@@ -11,7 +11,7 @@ PROGGER = $(BIN)/gerador
 CPPFLAGSGTK = `pkg-config --cflags gtkmm-3.0` -std=c++11 -I$(INC)
 LDFLAGSGTK = `pkg-config --libs gtkmm-3.0`
 CPPFLAGS = -Wall -pedantic -std=c++11 -I$(INC)
-OBJTS = $(OBJ)/memoria.o $(OBJ)/converterHexaToDecimal.o $(OBJ)/simulador.o $(OBJ)/JanelaPrincipal.o
+OBJTS = $(OBJ)/memoria.o $(OBJ)/simulador.o $(OBJ)/JanelaPrincipal.o
 OBJTSGER = $(OBJ)/algoritmosGeradorEnd.o
 
 all: mkdirs $(PROG) $(PROGGER)
@@ -28,9 +28,6 @@ $(PROGGER): $(OBJTSGER)
 
 $(OBJ)/memoria.o: $(SRC)/memoria.cpp $(INC)/memoria.h
 	$(CC) $(CPPFLAGS) -c $(SRC)/memoria.cpp -o $(OBJ)/memoria.o
-
-$(OBJ)/converterHexaToDecimal.o: $(SRC)/converterHexaToDecimal.cpp $(INC)/converterHexaToDecimal.h
-	$(CC) $(CPPFLAGS) -c $(SRC)/converterHexaToDecimal.cpp -o $(OBJ)/converterHexaToDecimal.o
 
 $(OBJ)/simulador.o: $(SRC)/simulador.cpp
 	$(CC) $(CPPFLAGSGTK) -c $(SRC)/simulador.cpp -o $(OBJ)/simulador.o

@@ -237,13 +237,15 @@ void JanelaPrincipal::addInfo(string texto)
 }
 
 void JanelaPrincipal::gerarRelatorio(
-	int tamMemoria, int tamPagina,string algoritmo, 
+	int tamMemoria, int tamPagina, string algoritmo, 
 	int totalPalavras, int paginasLidas,
 	int faltaPaginas, int paginasSujas, 
 	int paginasEscritas, int paginasRepetidas
 	){
+
 	for(unsigned int i = 0; i < algoritmo.length(); i++)
 			algoritmo[i] = toupper(algoritmo[i]);
+
 	addInfo("TOTAL PAGINAS NA MEMÓRIA: " + to_string(tamMemoria / tamPagina));
 	addInfo("ALGORITMO SUBSTITUIÇÃO: " + algoritmo);
 	addInfo("PALAVRAS: " + to_string(totalPalavras));
@@ -254,4 +256,12 @@ void JanelaPrincipal::gerarRelatorio(
 	addInfo("		-SUCESSO: " + to_string(paginasEscritas)); 
 	addInfo("		-REPETIÇÃO: " + to_string(paginasRepetidas));
 	addInfo("		-SUBSTITUIDAS: " + to_string(paginasSujas));
+}
+
+int JanelaPrincipal::converterHexaToDecimal(string palavraHex){
+    int valor;
+    stringstream stream;
+    stream << palavraHex;
+    stream >> hex >> valor;
+    return valor;
 }

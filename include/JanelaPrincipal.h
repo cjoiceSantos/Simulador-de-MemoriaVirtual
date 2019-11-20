@@ -5,6 +5,8 @@
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <string>
+#include <sstream>
 #include "converterHexaToDecimal.h"
 #include "memoria.h"
 
@@ -61,6 +63,7 @@ class JanelaPrincipal : public Window
 		void funcaoBotaoEscolherArquivo();
 		void addInfo(string);
 		void gerarRelatorio(int, int, string, int, int, int, int, int, int);
+		int converterHexaToDecimal(string palavraHex);
 };
 
 #endif
