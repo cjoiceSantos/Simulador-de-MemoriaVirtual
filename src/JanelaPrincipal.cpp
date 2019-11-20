@@ -8,7 +8,7 @@ using namespace std;
 */
 
 JanelaPrincipal::JanelaPrincipal():
-	labelFrame("Quantidade de frames: "),
+	labelFrame("Quantidade de memória: "),
 	labelPagina("Quantidade de Paginas: "),
 	labelAlgoritimo("Algotitimos: "),
 	labelArquivo("Arquivo: "),
