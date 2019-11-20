@@ -13,15 +13,15 @@ int posicao;
 
 Memoria::Memoria(int tamMemoria, int tamFrame, string metSubstituicao): tamMemoria(tamMemoria), tamFrame(tamFrame), metSubstituicao(metSubstituicao){ 
     totalPaginasNaMemoria = tamMemoria/tamFrame;
-    
+
     //criando uma matriz para o nru.
-    if (metSubstituicao == "nru"){
-    	matrizNru = new int *[totalPaginasNaMemoria];
-	for (campos=0; campos<totalPaginasNaMemoria; campos++)
-	    matrizNru[campos] = new int[2];
-	    for(campos=0; campos<totalPaginasNaMemoria; campos ++){ //para deixar os valores zerados. 
-                matrizNru[campos][1] = 0;
-		matrizNru[campos][2] = 0;
+    if(metSubstituicao == "nru"){
+        matrizNru = new int *[totalPaginasNaMemoria];
+        for(campos = 0; campos < totalPaginasNaMemoria; campos++)
+            matrizNru[campos] = new int[2];
+        for(campos = 0; campos < totalPaginasNaMemoria; campos ++){ //para deixar os valores zerados. 
+            matrizNru[campos][1] = 0;
+        matrizNru[campos][2] = 0;
         }
     }	
 }
@@ -37,20 +37,27 @@ int Memoria::escrita(int pagina){
     if(frames.size() < totalPaginasNaMemoria){ 
         
 	//==============================================================================
+<<<<<<< HEAD
 	if (metSubstituicao == "nru"){
 	    //na escrita o nru altera os campos de referencia e escrita.
 	    for(campos=0; campos<totalPaginasNaMemoria; campos ++){
+=======
+    //poderia tá em atualizar página?
+        if (metSubstituicao == "nru"){
+            //na escrita o nru altera os campos de referencia e escrita.
+            for(campos=0; campos<totalPaginasNaMemoria; campos ++){
+>>>>>>> 5d791e5d2b86b8381a830e594c70b787fa37e885
                 if(matrizNru[campos][0] == pagina){
                     matrizNru[campos][1] = 1;
-		    matrizNru[campos][2] = 1;
+                    matrizNru[campos][2] = 1;
                 }
             }
         } 
-	//==============================================================================
-	    
-	frames.insert(pagina);
-    atualizarEstruturas(pagina);
-    return 1; //página inserida 
+        //==============================================================================
+            
+        frames.insert(pagina);
+        atualizarEstruturas(pagina);
+        return 1; //página inserida 
     }
     
     //Se não há mais espaço, substitui a página
@@ -63,16 +70,16 @@ bool Memoria::leitura(int pagina){
     if(it != frames.end()){
 
  	//se for no nru==================================
-	if (metSubstituicao == "nru"){
-	    for(campos=0; campos<totalPaginasNaMemoria; campos ++){
+        if (metSubstituicao == "nru"){
+            for(campos=0; campos<totalPaginasNaMemoria; campos ++){
                 if(matrizNru[campos][0] == pagina){
-	            matrizNru[campos][1] = 1;
-	        }
+                matrizNru[campos][1] = 1;
+                }
             } 		
         }
 	//================================================
     
-    return true;
+        return true;
     }
     //No simulador é feito a chamada da escrita para a página faltante ser escrita na memória
     return false;
@@ -93,7 +100,7 @@ void Memoria::random(int pagina){
     frames.insert(pagina);
 }
 
-int Memoria::lru(int pagina){
+void Memoria::lru(int pagina){
     it = frames.find(ordemDeUso[0]);
     frames.erase(it);
     frames.insert(pagina);
@@ -113,12 +120,25 @@ void Memoria::fifo(int pagina){
     fila.push(pagina); 
 }
 
-int Memoria::nru(int pagina){
+void Memoria::nru(int pagina){
+    int aux = 0;
     for(campos=0; campos<totalPaginasNaMemoria; campos ++){
          if(matrizNru[campos][1] == 0 && matrizNru[campos][2] == 0){
               matrizNru[campos][0] = pagina;
-                }
-            } 
+	      matrizNru[campos][1] = 1;
+	      aux = 1;
+	 }
+		 
+    }
+    if ((aux == 0)){
+         for(campos=0; campos<totalPaginasNaMemoria; campos ++){
+         	if(matrizNru[campos][1] == 0 && matrizNru[campos][2] == 1){
+              	    matrizNru[campos][0] = pagina;
+              	    matrizNru[campos][1] = 1;
+              	    aux = 1;
+         	}
+    	}
+    } 
 }
 
 void Memoria::lfu(int pagina){

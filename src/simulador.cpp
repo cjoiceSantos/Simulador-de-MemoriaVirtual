@@ -5,6 +5,7 @@
 #include <string>
 #include "memoria.h"
 #include "algoritmosGeradorEnd.h"
+
 using namespace std;
 
 // Converte a palavra em hexadecimal para decimal
@@ -34,9 +35,6 @@ int faltaPaginas, int paginasSujas, int paginasEscritas, int paginasRepetidas){
 
 int main(int argc, char const *argv[])
 {   
-   // AlgoritmosGeradorEnd gerando_arquivo(1000, 1000);
-    //gerando_arquivo.gerarArquivo();
-
     //VERIFICANDO PARÂMETROS
     if(argc != 5){
         cerr  <<"Parâmetros inválidos. Informe: "<< endl 
@@ -68,7 +66,6 @@ int main(int argc, char const *argv[])
 		return 1;
 	}
 
-    //AlgoritmosSubstituicao *alg_subst = new AlgoritmosSubstituicao(tamMemoria,tamPagina,algoritmo);
     string palavra, operacao;
     int endDecimal, pagina, totalPalavras=0, paginasLidas=0, paginasEscritas = 0, paginasSujas=0, faltaPaginas=0,paginasRepetidas=0,result;
     Memoria* memoria = new Memoria(tamMemoria, tamPagina,algoritmo);
@@ -102,5 +99,4 @@ int main(int argc, char const *argv[])
 
     gerarRelatorio(tamMemoria,tamPagina,algoritmo,totalPalavras,paginasLidas,faltaPaginas,paginasSujas,paginasEscritas,paginasRepetidas);
     arqEndercos.close();
-
- }
+}

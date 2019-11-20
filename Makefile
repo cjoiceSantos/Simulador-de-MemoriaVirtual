@@ -6,19 +6,23 @@ INC = ./include
 SRC = ./src
 OBJ = ./build
 BIN = ./bin
-# nome do executáveL
 PROG = $(BIN)/simulador
+PROGGER = $(BIN)/gerador
 CPPFLAGS = -Wall -pedantic -std=c++11 -I$(INC)
-OBJTS = $(OBJ)/memoria.o $(OBJ)/algoritmosGeradorEnd.o $(OBJ)/simulador.o 
+OBJTS = $(OBJ)/memoria.o $(OBJ)/simulador.o
+OBJTSGER = $(OBJ)/algoritmosGeradorEnd.o
 
-all: mkdirs $(PROG)
+all: mkdirs $(PROG) $(PROGGER)
 
 mkdirs:
 	mkdir -p $(BIN)
 	mkdir -p $(OBJ)
 
 $(PROG): $(OBJTS)
-	$(CC) $(CPPFLAGS) -o $(PROG) $(OBJTS) 
+	$(CC) $(CPPFLAGS) -o $(PROG) $(OBJTS)
+
+$(PROGGER): $(OBJTSGER)
+	$(CC) $(CPPFLAGS) -o $(PROGGER) $(OBJTSGER) 
 
 $(OBJ)/memoria.o: $(SRC)/memoria.cpp $(INC)/memoria.h
 	$(CC) $(CPPFLAGS) -c $(SRC)/memoria.cpp -o $(OBJ)/memoria.o
@@ -37,4 +41,6 @@ debug: $(PROG)
 	gdb $(PROG)
 
 run:
-	$(PROG) $(PAR1) $(PAR2) $(PAR3) $(PAR4) 
+	$(PROG) $(PAR1) $(PAR2) $(PAR3) $(PAR4)
+runGer:
+	$(PROGGER) $(PAR1) $(PAR2) $(PAR3)
