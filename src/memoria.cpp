@@ -37,16 +37,10 @@ int Memoria::escrita(int pagina){
     if(frames.size() < totalPaginasNaMemoria){ 
         
 	//==============================================================================
-<<<<<<< HEAD
-	if (metSubstituicao == "nru"){
-	    //na escrita o nru altera os campos de referencia e escrita.
-	    for(campos=0; campos<totalPaginasNaMemoria; campos ++){
-=======
     //poderia tá em atualizar página?
         if (metSubstituicao == "nru"){
             //na escrita o nru altera os campos de referencia e escrita.
             for(campos=0; campos<totalPaginasNaMemoria; campos ++){
->>>>>>> 5d791e5d2b86b8381a830e594c70b787fa37e885
                 if(matrizNru[campos][0] == pagina){
                     matrizNru[campos][1] = 1;
                     matrizNru[campos][2] = 1;

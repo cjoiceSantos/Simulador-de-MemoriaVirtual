@@ -7,7 +7,6 @@
 #include <fstream>
 #include <string>
 #include <sstream>
-#include "converterHexaToDecimal.h"
 #include "memoria.h"
 
 using namespace std;
