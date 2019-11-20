@@ -8,18 +8,33 @@
 using namespace std;
 
 // Converte a palavra em hexadecimal para decimal
-int valor;
 int  converterHexaToDecimal(string palavraHex){
+    int valor;
     stringstream stream;
     stream << palavraHex;
     stream >> hex >> valor;
     return valor;
 }
 
+void gerarRelatorio(int tamMemoria, int tamPagina,string algoritmo, int totalPalavras, int paginasLidas,
+int faltaPaginas, int paginasSujas, int paginasEscritas, int paginasRepetidas){
+    cout << "___________________RELATÓRIO____________________ " << endl <<
+            "TOTAL PAGINAS NA MEMÓRIA: " << tamMemoria/tamPagina << endl <<
+            "ALGORITMO SUBSTITUIÇÃO: " << algoritmo << endl <<
+            "PALAVRAS: " << totalPalavras << endl <<
+            "TOTAL LEITURAS: " << paginasLidas+faltaPaginas << endl <<
+            "  SUCESSO - " << paginasLidas << endl <<
+            "  FALTA DE PÁGINA - " <<  faltaPaginas << endl <<
+            "TOTAL ESCRITAS: " << paginasEscritas+paginasSujas << endl <<
+            "  SUCESSO - " << paginasEscritas << endl << 
+            "  REPETIÇÃO - " << paginasRepetidas << endl <<
+            "  SUBSTITUIDAS - " << paginasSujas << endl;
+}
+
 
 int main(int argc, char const *argv[])
 {   
-   // AlgoritmosSubstituicao gerando_arquivo(1000, 1000);
+   // AlgoritmosGeradorEnd gerando_arquivo(1000, 1000);
     //gerando_arquivo.gerarArquivo();
 
     //VERIFICANDO PARÂMETROS
@@ -73,30 +88,19 @@ int main(int argc, char const *argv[])
             }
             faltaPaginas++;
         }
-
         result = memoria->escrita(pagina);
-        if(result==1){     
+        if(result == 1){     
             paginasEscritas++;
             continue;
-        }else if(result==2){
+        }
+        else if(result == 2){
             paginasRepetidas++;
             continue;
         }
         paginasSujas++;           
     }
 
-    cout << "RELATÓRIOS: " << endl <<
-    "TOTAL PAGINAS NA MEMÓRIA: " << tamMemoria/tamPagina << endl <<
-    "ALGORITMO SUBSTITUIÇÃO: " << algoritmo << endl <<
-    "PALAVRAS: " << totalPalavras << endl <<
-    "TOTAL LEITURAS: " << paginasLidas+faltaPaginas << endl <<
-    "  SUCESSO - " << paginasLidas << endl <<
-    "  FALTA DE PÁGINA - " <<  faltaPaginas << endl <<
-    "TOTAL ESCRITAS: " << paginasEscritas+paginasSujas << endl <<
-    "  SUCESSO - " << paginasEscritas << endl << 
-    "  REPETIÇÃO - " << paginasRepetidas << endl <<
-    "  SUBSTITUIDAS - " << paginasSujas << endl;
-    //memoria->print();
+    gerarRelatorio(tamMemoria,tamPagina,algoritmo,totalPalavras,paginasLidas,faltaPaginas,paginasSujas,paginasEscritas,paginasRepetidas);
     arqEndercos.close();
 
  }
